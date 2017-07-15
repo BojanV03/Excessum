@@ -33,7 +33,6 @@ public:
 
 private:
   sf::Sprite m_sprite;
-  sf::Sprite m_skullSprite;
   sf::Font m_botovi;
   sf::Font m_rukopis;
   unsigned m_score;

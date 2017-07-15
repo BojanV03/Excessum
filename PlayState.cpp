@@ -12,10 +12,13 @@ PlayState::PlayState(Game* game)
   knjiga = Book(p_game->Textures(), p_game->Fonts());
   m_optionsAnimation = false;
 
-  for (int i = 0; i < 5; i++) {
-    m_organisms.push_back(new Organism(p_game->Textures().Get("walk")));
-  }
+
+  m_organisms.push_back(new Organism(p_game->Textures().Get("walk"), p_game->Fonts().Get("font1")));
+
   m_background = sf::Sprite(p_game->Textures().Get("background"));
+
+  m_spawnTime = 2;
+  m_clock.restart();
 }
 PlayState::~PlayState()
 {
@@ -42,9 +45,30 @@ void PlayState::Update(float dt)
     //m_startGame = true;
     return ;
   }
-  for (auto it = m_organisms.begin(); it != m_organisms.end(); it++) {
-    (*it)->Update(dt);
+  if (m_clock.getElapsedTime().asSeconds() > m_spawnTime) {
+    // Ako je proteklo vise od spawnTime
+    // dodaj novog
+    m_organisms.push_back(new Organism(p_game->Textures().Get("walk"), p_game->Fonts().Get("font1")));
+
+    // sortiranje zbog preklapanja
+    std::sort(m_organisms.begin(), m_organisms.end(), [](const Organism* l, const Organism* r) {
+      return l->GetAnimation().GetY() < r->GetAnimation().GetY();
+    });
+    m_clock.restart();
   }
+  for (size_t i = 0; i < m_organisms.size(); i++) {
+    m_organisms[i]->Update(dt);
+
+    if ((m_organisms[i]->GetAnimation().GetX() > WIDTH &&
+        m_organisms[i]->GetAnimation().GetDirection() == RIGHT) ||
+        (m_organisms[i]->GetAnimation().GetX() + m_organisms[i]->GetAnimation().GetWidth() < 0 &&
+         m_organisms[i]->GetAnimation().GetDirection() == LEFT))
+    {
+      // Izasao izvan ekrana
+      DeleteOrganism(i);
+    }
+  }
+
 }
 void PlayState::Render(sf::RenderWindow& window)
 {
@@ -56,15 +80,18 @@ void PlayState::Render(sf::RenderWindow& window)
   }
   for (auto it = m_organisms.begin(); it != m_organisms.end(); it++) {
     (*it)->Render(window);
-    knjiga.KillPerson((*it)->GetName());
   }
 	knjiga.Render(window);
 }
 void PlayState::Clean()
 {
   // Brisanje organizama
-  //for (size_t i = 0; i < m_organisms.size(); i++) {
-    //m_organisms[i] = m_organisms.back();
-    //m_organisms.pop_back();
-  //}
+  for (size_t i = 0; i < m_organisms.size(); i++) {
+    DeleteOrganism(i);
+  }
+}
+void PlayState::DeleteOrganism(size_t indeks)
+{
+  m_organisms[indeks] = m_organisms.back();
+  m_organisms.pop_back();
 }

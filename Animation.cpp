@@ -13,7 +13,9 @@ Animation::Animation(const sf::Sprite& sprite, int x, int y, int width, int heig
   }
   m_clock.restart();
 }
-
+Animation::~Animation()
+{
+}
 int Animation::GetWidth() const
 {
   return m_width;
@@ -52,4 +54,8 @@ void Animation::Render(sf::RenderWindow& window)
 {
   m_spriteSheet.setPosition(m_x, m_y);
   window.draw(m_spriteSheet);
+}
+Direction Animation::GetDirection() const
+{
+  return m_direction;
 }

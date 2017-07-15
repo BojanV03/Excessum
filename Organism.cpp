@@ -6,11 +6,11 @@ Organism::Organism()
 {
 }
 
-Organism::Organism(const sf::Texture &a)
+Organism::Organism(const sf::Texture &a, const sf::Font& font)
 {
 	m_image.setTexture(a);
 	m_situation = rand() % 2;
-	int y = (rand() % (int)(HEIGHT/3)) + HEIGHT/3;
+	int y = (rand() % (int)(HEIGHT/6)) + HEIGHT/3;
 	std::ifstream input("assets/data/names.txt");
 	int name = rand() % 200;
 	std::string firstName, lastName;
@@ -29,18 +29,19 @@ Organism::Organism(const sf::Texture &a)
 	if(m_situation == 0)
 	{
 //		m_image.setPosition(10, 10);
-		m_anim = new Animation(m_image, 0, 0, 102, 148, 6, 0.1, RIGHT);
+		m_anim = new Animation(m_image, 0, 0, 108, 201, 5, 0.1*razmera, RIGHT);
 		m_anim->SetPosition(-m_anim->GetWidth(), y);
 		std::cout << "Levo" << '\n';
 	}
 	else
 	{
 //		m_image.setPosition(10, 10);
-		m_anim = new Animation(m_image, 0, 0, 102, 148, 6, 0.1, LEFT);
+		m_anim = new Animation(m_image, 0, 0, 108, 201, 5, 0.1*razmera, LEFT);
 		m_anim->SetPosition(WIDTH, y);
 		std::cout << "DESNO" << '\n';
 	}
-	m_velocity = (rand() % (m_VEL_MAX-m_VEL_MIN))+m_VEL_MIN;
+	m_velocity = 300*razmera;
+	m_font = sf::Font(font);
 }
 
 Organism::~Organism()
@@ -69,14 +70,17 @@ std::string& Organism::GetName()
 void Organism::Render(sf::RenderWindow &window)
 {
 	sf::Text text;
-	sf::Font font;
-	font.loadFromFile("assets/fonts/MOTB.ttf");
+
 	text.setString(m_name);
-	text.setFont(font);
+	text.setFont(m_font);
 	text.setCharacterSize(35);
 	text.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - text.getLocalBounds().width/2, m_anim->GetY()-text.getLocalBounds().height*2.0);
 
 	text.setFillColor(sf::Color::White);
 	window.draw(text);
 	m_anim->Render(window);
+}
+const Animation& Organism::GetAnimation() const
+{
+	return *m_anim;
 }

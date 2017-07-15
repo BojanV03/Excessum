@@ -10,6 +10,7 @@ class Animation
 public:
 
   Animation(const sf::Sprite& sprite, int x, int y, int width, int height, int num, float time, Direction direction);
+  ~Animation();
 
   void SetPosition(int x, int y);
   void Update();
@@ -20,6 +21,8 @@ public:
 
   int GetX() const;
   int GetY() const;
+
+  Direction GetDirection() const;
 private:
   sf::Clock m_clock;
   sf::Sprite m_spriteSheet;

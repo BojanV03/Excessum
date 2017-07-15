@@ -16,7 +16,6 @@ Book::Book(const TextureManager& textures, const FontManager& fonts)
   m_hp = 5;
 
 	m_botovi = sf::Font(fonts.Get("botovi"));
-  m_skullSprite.setTexture(textures.Get("skull"));
 
   m_score = 0;
 }

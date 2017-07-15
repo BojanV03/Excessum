@@ -15,23 +15,23 @@ class Organism
 {
 public:
   Organism();
-  Organism(const sf::Texture&);
+  Organism(const sf::Texture&, const sf::Font& font);
 	~Organism();
 
 	void Resize();
   void Update(float dt);
 	void Render(sf::RenderWindow &window);
+	const Animation& GetAnimation() const;
 	std::string& GetName();
 
-	Animation *m_anim;
-	sf::Sprite m_image;	//privatovati
-protected:
-	sf::Vector2f m_position;
-	// Ako je u pitanju animacija, a ne staticna slika, dodati ovde objekat klase animacije
 private:
 	std::string m_name;
   int m_situation;
   int m_VEL_MIN = 200;
   int m_VEL_MAX = 400;
   int m_velocity;
+
+	Animation *m_anim;
+	sf::Sprite m_image;
+	sf::Font m_font;
 };
