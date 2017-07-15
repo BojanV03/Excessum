@@ -1,8 +1,10 @@
-
 #include "headers/Game.h"
 #include "headers/Collision.h"
+#include "headers/Organism.h"
 #include <iostream>
+#include <vector>
 
+std::vector<Organism*> people;
 
 sf::Time Game::FPS = sf::seconds(1.0f / 60.0f);
 
@@ -44,21 +46,27 @@ void Game::Render()
 {
 	m_window.clear();
 	m_animation->Render(m_window);
+	for(auto i = people.begin(); i != people.end(); i++)
+	{
+		Organism *a = *i;
+		a->Render(m_window);
+		a->Move();
+	}
 	m_window.display();
 }
 void Game::ProcessEvents()
 {
 	sf::Event event;
+
 	while (m_window.pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
 			m_window.close();
 		}
-		/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			std::string s;
-			std::cin >> s;
-			knjiga.KillPerson(s);
-			std::cout << "Ubijena osoba " << s << std::endl;
-		}*/
+			std::cout << "Spawned" << std::endl;
+			Organism* a = new Organism(m_textures.Get("skull"));
+			people.push_back(a);
+		}
 	}
 }
