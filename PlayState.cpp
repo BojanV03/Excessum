@@ -13,7 +13,7 @@ PlayState::PlayState(Game* game)
   m_optionsAnimation = false;
 
 
-  m_organisms.push_back(new Organism(p_game->Textures().Get("walk"), p_game->Fonts().Get("font1")));
+
 
   m_background = sf::Sprite(p_game->Textures().Get("background"));
 
@@ -48,7 +48,7 @@ void PlayState::Update(float dt)
   if (m_clock.getElapsedTime().asSeconds() > m_spawnTime) {
     // Ako je proteklo vise od spawnTime
     // dodaj novog
-    m_organisms.push_back(new Organism(p_game->Textures().Get("walk"), p_game->Fonts().Get("font1")));
+    AddPerson();
 
     // sortiranje zbog preklapanja
     std::sort(m_organisms.begin(), m_organisms.end(), [](const Organism* l, const Organism* r) {
@@ -94,4 +94,14 @@ void PlayState::DeleteOrganism(size_t indeks)
 {
   m_organisms[indeks] = m_organisms.back();
   m_organisms.pop_back();
+}
+int PlayState::GetPersonIndex() const
+{
+  return rand()%(NUM_PERSONS-1 + 1) + 1;
+}
+void PlayState::AddPerson()
+{
+  int index = GetPersonIndex();
+  std::string name("person" + std::to_string(index));
+  m_organisms.push_back(new Organism(p_game->Textures().Get(name), p_game->Fonts().Get("font1")));
 }

@@ -6,6 +6,7 @@
 
 int WIDTH = 1024;
 int HEIGHT = 768;
+int NUM_PERSONS = 2; // promeniti po dodavanju
 
 int main(int argc, char *argv[])
 {

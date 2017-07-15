@@ -14,6 +14,8 @@ public:
   void Update(float dt);
   void Render(sf::RenderWindow& window);
   void Clean();
+  int GetPersonIndex() const;
+  void AddPerson();
 private:
   std::vector<sf::Text> m_options;
 
