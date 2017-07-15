@@ -11,11 +11,14 @@ Book::Book()
 Book::Book(const TextureManager& textures, const FontManager& fonts)
 {
 	m_sprite.setTexture(textures.Get("knjiga"));
+	m_sprite.setScale(1.7, 1.7);
+
   m_names = std::deque<std::string>();
-  m_sprite.setPosition(WIDTH/2 - m_sprite.getLocalBounds().width/2, HEIGHT-m_sprite.getLocalBounds().height);
+  m_sprite.setPosition(WIDTH/2 - m_sprite.getLocalBounds().width/2-100, HEIGHT-m_sprite.getLocalBounds().height-75);
   m_hp = 5;
 
 	m_botovi = sf::Font(fonts.Get("botovi"));
+		m_rukopis = sf::Font(fonts.Get("rukopis"));
   m_skullSprite.setTexture(textures.Get("skull"));
 
   m_score = 0;
@@ -87,9 +90,9 @@ void Book::Render(sf::RenderWindow &window)
 		sf::Text text;
 
     text.setString(*i);
-    text.setFont(m_botovi);
+    text.setFont(m_rukopis);
     text.setCharacterSize(30);
-    text.setPosition(WIDTH/2 - 15, HEIGHT-m_sprite.getLocalBounds().height + j*30);
+    text.setPosition(WIDTH/2 + 10, HEIGHT-m_sprite.getLocalBounds().height + j*20 - 20);
 
     text.setFillColor(sf::Color::Black);
 //    std::cout << "Renderujemo osobu " << *i;

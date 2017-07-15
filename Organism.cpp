@@ -70,10 +70,12 @@ void Organism::Render(sf::RenderWindow &window)
 {
 	sf::Text text;
 	sf::Font font;
-	font.loadFromFile("assets/fonts/MOTB.ttf");
+	font.loadFromFile("assets/fonts/RoyalCrescentDemo.otf");
 	text.setString(m_name);
 	text.setFont(font);
-	text.setCharacterSize(35);
+	text.setCharacterSize(22);
+	text.setOutlineColor(sf::Color::Black);
+	//text.setOutlineThickness(2);
 	text.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - text.getLocalBounds().width/2, m_anim->GetY()-text.getLocalBounds().height*2.0);
 
 	text.setFillColor(sf::Color::White);

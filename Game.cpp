@@ -18,8 +18,8 @@ Game::Game()
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
 
 	m_fonts.Load("font1", "assets/fonts/MOTB.ttf");
-	m_fonts.Load("botovi", "assets/fonts/Sixteen_secodns.otf");
-	m_fonts.Load("rukopis", "assets/fonts/RoyalCrescentDemo.otf");
+	m_fonts.Load("rukopis", "assets/fonts/Sixteen_secodns.otf");
+	m_fonts.Load("botovi", "assets/fonts/RoyalCrescentDemo.otf");
 
 	m_currentState = new PlayState(this);
 
