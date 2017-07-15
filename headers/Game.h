@@ -1,18 +1,10 @@
 #pragma once
 
-
-#ifdef __linux__
-	#include <SFML/Graphics.hpp>
-	#include <iostream>
-	#include "Book.h"
-	#include "ResourceManager.h"
-	#include "Consts.h"
-#elif defined _WIN32
-	#include <SFML\Graphics.hpp>
-	#include <iostream>
-	#include "Book.h"
-	#include "ResourceManager.h"
-#endif
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Book.h"
+#include "ResourceManager.h"
+#include "Consts.h"
 
 class Game
 {
@@ -25,8 +17,8 @@ private:
 	sf::RenderWindow m_window;
 	static sf::Time FPS;
 	TextureManager m_textures;
-	sf::Sprite m_ship;
-	Book knjiga;
+
+	Book m_book;
 private:
 	void Update(float dt);
 	void Render();

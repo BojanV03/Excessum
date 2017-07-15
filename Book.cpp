@@ -8,16 +8,14 @@ Book::Book()
 {
 
 }
-Book::Book(const sf::Texture& texture)
-  : m_sprite(texture)
+Book::Book(TextureManager& textures)
 {
+	m_sprite.setTexture(textures.Get("book"));
   m_names = std::deque<std::string>();
   m_sprite.setPosition(WIDTH/2 - m_sprite.getLocalBounds().width/2, HEIGHT-m_sprite.getLocalBounds().height);
   m_hp = 5;
 
-  sf::Texture skullTexture;
-  skullTexture.loadFromFile("images/Skull.png");
-  m_skullSprite = sf::Sprite(skullTexture);
+  m_skullSprite.setTexture(textures.Get("skull"));
 
   m_score = 0;
 }

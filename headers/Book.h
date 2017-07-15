@@ -1,23 +1,17 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+#include "Consts.h"
+#include <iostream>
+#include <deque>
+#include "ResourceManager.h"
 
-#ifdef __linux__
-	#include <SFML/Graphics.hpp>
-  #include "Consts.h"
-	#include <iostream>
-  #include <deque>
-	#include "ResourceManager.h"
-#elif defined _WIN32
-	#include <SFML\Graphics.hpp>
-	#include <iostream>
-	#include "ResourceManager.h"
-#endif
 
 class Book
 {
 public:
    Book();
-	 Book(const sf::Texture& texture);
+	 Book(TextureManager& textures);
 	~Book();
 
   void KillPerson(const std::string &ime);

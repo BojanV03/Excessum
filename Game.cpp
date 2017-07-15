@@ -1,11 +1,7 @@
-#ifdef __linux__
-	#include "headers/Game.h"
-	#include "headers/Collision.h"
-	#include <iostream>
-#elif defined _WIN32
-	#include "headers\Game.h"
-	#include "headers\Collision.h"
-#endif
+
+#include "headers/Game.h"
+#include "headers/Collision.h"
+#include <iostream>
 
 
 sf::Time Game::FPS = sf::seconds(1.0f / 60.0f);
@@ -13,12 +9,10 @@ sf::Time Game::FPS = sf::seconds(1.0f / 60.0f);
 Game::Game()
 	:m_window(sf::VideoMode(WIDTH, HEIGHT), "Sfml Template")
 {
-	m_textures.Load("ship", "images/knjiga.jpg");
+	m_textures.Load("book", "assets/images/knjiga.jpg");
+	m_textures.Load("skull", "assets/images/Skull.png");
 
-	knjiga = Book(m_textures.Get("ship"));
-	m_ship.setTexture(m_textures.Get("ship"));
-	m_ship.setPosition(200, 200);
-
+	m_book = Book(m_textures);
 }
 Game::~Game()
 {
@@ -48,9 +42,7 @@ void Game::Update(float dt)
 void Game::Render()
 {
 	m_window.clear();
-
-	knjiga.Render(m_window);
-
+	m_book.Render(m_window);
 	m_window.display();
 }
 void Game::ProcessEvents()
@@ -60,12 +52,12 @@ void Game::ProcessEvents()
 		if (event.type == sf::Event::Closed) {
 			m_window.close();
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
 			std::string s;
 			std::cin >> s;
 			knjiga.KillPerson(s);
 			std::cout << "Ubijena osoba " << s << std::endl;
-		}
+		}*/
 	}
 }
