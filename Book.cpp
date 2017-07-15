@@ -11,7 +11,7 @@ Book::Book()
 Book::Book(const sf::Texture& texture)
   : m_sprite(texture)
 {
-  m_imena = std::deque<std::string>();
+  m_names = std::deque<std::string>();
   m_sprite.setPosition(WIDTH/2 - m_sprite.getLocalBounds().width/2, HEIGHT-m_sprite.getLocalBounds().height);
   m_hp = 5;
 
@@ -29,11 +29,11 @@ Book::~Book()
 
 void Book::KillPerson(const std::string &ime)
 {
-  m_imena.push_front(std::string(ime));
+  m_names.push_front(std::string(ime));
 
-  if(m_imena.size() >= 10)
+  if(m_names.size() >= 10)
   {
-    m_imena.pop_back();
+    m_names.pop_back();
   }
 }
 
@@ -82,7 +82,7 @@ void Book::Render(sf::RenderWindow &window)
   window.draw(m_sprite);
   window.draw(m_skullSprite);
 
-  for(auto i = m_imena.cbegin(); i != m_imena.cend(); i++)
+  for(auto i = m_names.cbegin(); i != m_names.cend(); i++)
   {
     sf::Text text;
     sf::Font font;

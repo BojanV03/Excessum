@@ -42,5 +42,5 @@ private:
   sf::Sprite m_skullSprite;
   unsigned m_score;
   float m_hp;
-	std::deque<std::string> m_imena;
+	std::deque<std::string> m_names;
 };
