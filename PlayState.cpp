@@ -10,11 +10,7 @@ PlayState::PlayState(Game* game)
   m_options[1].setPosition(m_optionsX, m_options[0].getPosition().y + OPTIONS_LINE_HEIGHT);
 
   knjiga = Book(p_game->Textures(), p_game->Fonts());
-  m_optionsAnimation = false;
-
-  m_organisms.push_back(new Organism(p_game->Textures().Get("walk"), p_game->Fonts().Get("font1")));
-
-  m_background = sf::Sprite(p_game->Textures().Get("background"));
+  m_optionsAnimation = false;  m_background = sf::Sprite(p_game->Textures().Get("background"));
 
   m_spawnTime = 2;
   m_clock.restart();
@@ -23,6 +19,43 @@ PlayState::~PlayState()
 {
   Clean();
 }
+
+void PlayState::Keyboard(char key)
+{
+  std::cout << key << std::endl;
+
+  m_inputText.push_back(key);
+
+  std::string str(m_inputText.begin(),m_inputText.end());
+
+  bool isFound = false;
+
+  int i = 0;
+  for(auto it = m_organisms.begin(); it != m_organisms.end(); it++, i++)
+  {
+    if((*it)->GetName().find(str) == 0)
+    {
+      (*it)->SetRenderText((*it)->GetName().substr(str.size()));
+      isFound = true;
+      if((*it)->GetName().size() == str.size())
+      {
+        std::cout << "JEDNAKO " << i << "  "<<  m_organisms.size() << '\n';
+        DeleteOrganism(i);
+        m_inputText.clear();
+        return;
+      }
+    }
+    else
+    {
+      (*it)->SetRenderText((*it)->GetName());
+    }
+  }
+  if(!isFound)
+  {
+    m_inputText.clear();
+  }
+}
+
 void PlayState::Update(float dt)
 {
   if (m_optionsAnimation) {
@@ -47,7 +80,7 @@ void PlayState::Update(float dt)
   if (m_clock.getElapsedTime().asSeconds() > m_spawnTime) {
     // Ako je proteklo vise od spawnTime
     // dodaj novog
-    m_organisms.push_back(new Organism(p_game->Textures().Get("walk"), p_game->Fonts().Get("font1")));
+    AddPerson();
 
     // sortiranje zbog preklapanja
     std::sort(m_organisms.begin(), m_organisms.end(), [](const Organism* l, const Organism* r) {
@@ -93,4 +126,14 @@ void PlayState::DeleteOrganism(size_t indeks)
 {
   m_organisms[indeks] = m_organisms.back();
   m_organisms.pop_back();
+}
+int PlayState::GetPersonIndex() const
+{
+  return rand()%(NUM_PERSONS-1 + 1) + 1;
+}
+void PlayState::AddPerson()
+{
+  int index = GetPersonIndex();
+  std::string name("person" + std::to_string(index));
+  m_organisms.push_back(new Organism(p_game->Textures().Get(name), p_game->Fonts().Get("botovi")));
 }

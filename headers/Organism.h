@@ -24,6 +24,8 @@ public:
 	const Animation& GetAnimation() const;
 	std::string& GetName();
 
+	void SetRenderText(const std::string& s);
+
 private:
 	std::string m_name;
   int m_situation;
@@ -33,5 +35,6 @@ private:
 
 	Animation *m_anim;
 	sf::Sprite m_image;
+	sf::Text m_renderText;
 	sf::Font m_font;
 };

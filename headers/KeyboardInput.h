@@ -13,6 +13,7 @@ public:
 	KeyboardInput();
 	~KeyboardInput();
 
+  
 private:
   std::vector<char> m_typed;
 };

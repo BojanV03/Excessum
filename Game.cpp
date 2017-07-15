@@ -11,7 +11,8 @@ sf::Time Game::FPS = sf::seconds(1.0f / 60.0f);
 Game::Game()
 	:m_window(sf::VideoMode(WIDTH, HEIGHT), "Sfml Template")
 {
-	m_textures.Load("walk", "assets/images/kauboj.png");
+	m_textures.Load("person1", "assets/images/person1.png"); // kauboj
+	m_textures.Load("person2", "assets/images/person2.png"); // serif
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
 
@@ -60,6 +61,14 @@ void Game::ProcessEvents()
 	while (m_window.pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
 			m_window.close();
+		}
+		else if(event.type == sf::Event::TextEntered)
+		{
+			if(event.text.unicode > 'a' && event.text.unicode < 'z' ||
+				 event.text.unicode > 'A' && event.text.unicode < 'Z' || ' ')
+			{
+				m_currentState->Keyboard(static_cast<char>(event.text.unicode));
+			}
 		}
 	}
 }

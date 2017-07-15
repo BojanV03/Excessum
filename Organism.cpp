@@ -26,6 +26,7 @@ Organism::Organism(const sf::Texture &a, const sf::Font& font)
 	float razmera;
 	razmera = 0.5 + ((1.0*y-HEIGHT/3)/HEIGHT)*(1.5);
 	m_image.setScale(razmera, razmera);
+	m_renderText.setString(m_name);
 	if(m_situation == 0)
 	{
 //		m_image.setPosition(10, 10);
@@ -40,7 +41,7 @@ Organism::Organism(const sf::Texture &a, const sf::Font& font)
 		m_anim->SetPosition(WIDTH, y);
 		std::cout << "DESNO" << '\n';
 	}
-	m_velocity = 300*razmera;
+	m_velocity = 100*razmera;
 	m_font = sf::Font(font);
 }
 
@@ -67,17 +68,20 @@ std::string& Organism::GetName()
 {
 	return m_name;
 }
+
+void Organism::SetRenderText(const std::string& s)
+{
+	m_renderText.setString(s);
+}
+
 void Organism::Render(sf::RenderWindow &window)
 {
-	sf::Text text;
+	m_renderText.setFont(m_font);
+	m_renderText.setCharacterSize(35);
+	m_renderText.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - m_renderText.getLocalBounds().width/2, m_anim->GetY()-m_renderText.getLocalBounds().height*2.0);
 
-	text.setString(m_name);
-	text.setFont(m_font);
-	text.setCharacterSize(35);
-	text.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - text.getLocalBounds().width/2, m_anim->GetY()-text.getLocalBounds().height*2.0);
-
-	text.setFillColor(sf::Color::White);
-	window.draw(text);
+	m_renderText.setFillColor(sf::Color::White);
+	window.draw(m_renderText);
 	m_anim->Render(window);
 }
 const Animation& Organism::GetAnimation() const
