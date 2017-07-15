@@ -12,7 +12,6 @@
 #include <stdexcept>
 #include <cassert>
 
-
 template<typename Identifier, typename Resource>
 class ResourceManager
 {

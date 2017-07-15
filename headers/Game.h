@@ -1,15 +1,16 @@
 #pragma once
 
-#define WIDTH 800
-#define HEIGHT 600
 
 #ifdef __linux__
 	#include <SFML/Graphics.hpp>
 	#include <iostream>
+	#include "Book.h"
 	#include "ResourceManager.h"
+	#include "Consts.h"
 #elif defined _WIN32
 	#include <SFML\Graphics.hpp>
 	#include <iostream>
+	#include "Book.h"
 	#include "ResourceManager.h"
 #endif
 
@@ -25,6 +26,7 @@ private:
 	static sf::Time FPS;
 	TextureManager m_textures;
 	sf::Sprite m_ship;
+	Book knjiga;
 private:
 	void Update(float dt);
 	void Render();
