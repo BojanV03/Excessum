@@ -2,6 +2,7 @@
 
 #ifdef __linux__
 	#include <SFML/Graphics.hpp>
+	#include <fstream>
 	#include "Consts.h"
 #elif defined _WIN32
 	#include <SFML\Graphics.hpp>
@@ -19,14 +20,14 @@ public:
   void Move();
 	void Render(sf::RenderWindow &window);
 
+sf::Sprite m_image;	//privatovati
 protected:
 	sf::Vector2f m_position;
-	sf::Sprite m_image;
 	// Ako je u pitanju animacija, a ne staticna slika, dodati ovde objekat klase animacije
 private:
 	std::string m_name;
   int m_situation;
   int m_VEL_MIN = 1;
-  int m_VEL_MAX = 10;
+  int m_VEL_MAX = 2;
   int m_velocity;
 };
