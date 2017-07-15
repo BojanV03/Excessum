@@ -40,6 +40,7 @@ void PlayState::Keyboard(char key)
       if((*it)->GetName().size() == str.size())
       {
         std::cout << "JEDNAKO " << i << "  "<<  m_organisms.size() << '\n';
+        knjiga.KillPerson(str);
         DeleteOrganism(i);
         m_inputText.clear();
         return;
