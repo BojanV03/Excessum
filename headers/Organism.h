@@ -21,6 +21,7 @@ public:
 	void Resize();
   void Update(float dt);
 	void Render(sf::RenderWindow &window);
+	std::string& GetName();
 
 	Animation *m_anim;
 	sf::Sprite m_image;	//privatovati

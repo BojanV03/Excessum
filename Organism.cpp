@@ -62,6 +62,10 @@ void Organism::Update (float dt)
 	m_anim->Update();
 }
 
+std::string& Organism::GetName()
+{
+	return m_name;
+}
 void Organism::Render(sf::RenderWindow &window)
 {
 	sf::Text text;

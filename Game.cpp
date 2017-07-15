@@ -17,10 +17,11 @@ Game::Game()
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
 
-	m_fonts.Load("font1", "assets/fonts/MOTB.ttf");
+	m_fonts.Load("botovi", "assets/fonts/RoyalCrescentDemo.otf");
+	m_fonts.Load("rukopis", "assets/fonts/blackTea.ttf");
 
 	m_currentState = new PlayState(this);
-	srand(time(NULL));
+
 }
 Game::~Game()
 {
@@ -60,10 +61,6 @@ void Game::ProcessEvents()
 	while (m_window.pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
 			m_window.close();
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-		//	std::cout << "Spawned" << std::endl;
 		}
 	}
 }

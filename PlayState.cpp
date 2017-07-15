@@ -9,6 +9,7 @@ PlayState::PlayState(Game* game)
   m_options[0].setPosition(m_optionsX, HEIGHT - 500);
   m_options[1].setPosition(m_optionsX, m_options[0].getPosition().y + OPTIONS_LINE_HEIGHT);
 
+  knjiga = Book(p_game->Textures(), p_game->Fonts());
   m_optionsAnimation = false;
 
   for (int i = 0; i < 5; i++) {
@@ -55,7 +56,9 @@ void PlayState::Render(sf::RenderWindow& window)
   }
   for (auto it = m_organisms.begin(); it != m_organisms.end(); it++) {
     (*it)->Render(window);
+    knjiga.KillPerson((*it)->GetName());
   }
+	knjiga.Render(window);
 }
 void PlayState::Clean()
 {

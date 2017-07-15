@@ -25,6 +25,7 @@ private:
   // bools - logic
   bool m_optionsAnimation;
   bool m_bookAnimation;
+  Book knjiga;
 
 private:
   const int OPTIONS_MOVE_STEP = 400;

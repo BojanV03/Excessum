@@ -11,7 +11,7 @@ class Book
 {
 public:
    Book();
-	 Book(TextureManager& textures);
+	 Book(const TextureManager& textures, const FontManager& fonts);
 	~Book();
 
   void KillPerson(const std::string &ime);
@@ -34,6 +34,8 @@ public:
 private:
   sf::Sprite m_sprite;
   sf::Sprite m_skullSprite;
+  sf::Font m_botovi;
+  sf::Font m_rukopis;
   unsigned m_score;
   float m_hp;
 	std::deque<std::string> m_names;
