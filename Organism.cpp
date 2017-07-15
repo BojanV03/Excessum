@@ -77,7 +77,7 @@ void Organism::SetRenderText(const std::string& s)
 void Organism::Render(sf::RenderWindow &window)
 {
 	m_renderText.setFont(m_font);
-	m_renderText.setCharacterSize(35);
+	m_renderText.setCharacterSize(30);
 	m_renderText.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - m_renderText.getLocalBounds().width/2, m_anim->GetY()-m_renderText.getLocalBounds().height*2.0);
 
 	m_renderText.setFillColor(sf::Color::White);

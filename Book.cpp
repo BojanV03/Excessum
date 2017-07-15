@@ -32,7 +32,7 @@ void Book::KillPerson(const std::string &ime)
 {
   m_names.push_front(std::string(ime));
 
-  if(m_names.size() >= 10)
+  if(m_names.size() >= 15)
   {
     m_names.pop_back();
   }

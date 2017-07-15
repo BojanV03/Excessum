@@ -19,7 +19,7 @@ Game::Game()
 
 	m_fonts.Load("font1", "assets/fonts/MOTB.ttf");
 	m_fonts.Load("rukopis", "assets/fonts/Sixteen_secodns.otf");
-	m_fonts.Load("botovi", "assets/fonts/BetterTogetherCondensed.ttf");
+	m_fonts.Load("botovi", "assets/fonts/OpenSans-CondLight.ttf");
 
 	m_currentState = new PlayState(this);
 
