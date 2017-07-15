@@ -1,5 +1,5 @@
-exec.exe: main.o Organism.o Book.o Animation.o Collision.o Entity.o Game.o State.o MenuState.o PlayState.o
-	g++ -std=c++11 main.o Book.o Organism.o Collision.o Animation.o Entity.o Game.o State.o MenuState.o PlayState.o -o exec.exe -lsfml-graphics -lsfml-window -lsfml-system
+exec.exe: main.o Organism.o Book.o Animation.o Collision.o Entity.o Game.o State.o PlayState.o
+	g++ -std=c++11 main.o Book.o Organism.o Collision.o Animation.o Entity.o Game.o State.o PlayState.o -o exec.exe -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp
 	g++ -std=c++11 -c main.cpp

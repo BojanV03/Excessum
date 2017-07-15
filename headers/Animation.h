@@ -1,4 +1,4 @@
-#pragma once
+  #pragma once
 #include <SFML/Graphics.hpp>
 enum Direction
 {
@@ -8,17 +8,18 @@ enum Direction
 class Animation
 {
 public:
-  
-  Animation(const sf::Texture&, int x, int y, int width, int height, int num, float time);
+
+  Animation(const sf::Texture&, int x, int y, int width, int height, int num, float time, Direction direction);
 
   void Update();
   void Render(sf::RenderWindow& window);
 private:
   sf::Clock m_clock;
-  sf::IntRect m_imgSelector;
   sf::Sprite m_spriteSheet;
 
   float m_time;
   int m_num;
-  int m_width;
+  int m_width, m_height;
+  int m_x, m_y;
+  Direction m_direction;
 };

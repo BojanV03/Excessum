@@ -9,7 +9,9 @@ PlayState::PlayState(Game* game)
   m_options[0].setPosition(m_optionsX, HEIGHT - 500);
   m_options[1].setPosition(m_optionsX, m_options[0].getPosition().y + OPTIONS_LINE_HEIGHT);
 
-  m_optionsAnimation = true;
+  m_optionsAnimation = false;
+
+  m_animation = new Animation(p_game->Textures().Get("walk"), 0, 0, 102, 148, 6, 0.1, Left);
 }
 PlayState::~PlayState()
 {
@@ -35,10 +37,14 @@ void PlayState::Update(float dt)
     //m_startGame = true;
     return ;
   }
+  m_animation->Update();
 }
 void PlayState::Render(sf::RenderWindow& window)
 {
-  for (auto it = m_options.cbegin(); it != m_options.cend(); it++) {
-    window.draw(*it);
+  if (m_optionsAnimation) {
+    for (auto it = m_options.cbegin(); it != m_options.cend(); it++) {
+      window.draw(*it);
+    }
   }
+  m_animation->Render(window);
 }
