@@ -11,7 +11,8 @@ PlayState::PlayState(Game* game)
 
   m_optionsAnimation = false;
 
-  m_animation = new Animation(sf::Sprite(p_game->Textures().Get("walk")), 0, 0, 102, 148, 6, 0.1, LEFT);
+  o = new Organism(p_game->Textures().Get("walk"));
+
 }
 PlayState::~PlayState()
 {
@@ -37,7 +38,7 @@ void PlayState::Update(float dt)
     //m_startGame = true;
     return ;
   }
-  m_animation->Update();
+  o->Update();
 }
 void PlayState::Render(sf::RenderWindow& window)
 {
@@ -46,5 +47,5 @@ void PlayState::Render(sf::RenderWindow& window)
       window.draw(*it);
     }
   }
-  m_animation->Render(window);
+  o->Render(window);
 }

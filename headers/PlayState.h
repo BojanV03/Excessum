@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "State.h"
+#include "Organism.h"
 #include <vector>
 
 class PlayState : public State
@@ -15,7 +16,7 @@ public:
 private:
   std::vector<sf::Text> m_options;
   float m_optionsX;
-  Animation *m_animation;
+  Organism *o;
 
   // bools
   bool m_optionsAnimation;
