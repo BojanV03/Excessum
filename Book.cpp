@@ -6,7 +6,6 @@
 
 Book::Book()
 {
-
 }
 Book::Book(TextureManager& textures)
 {

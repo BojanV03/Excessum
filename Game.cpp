@@ -15,6 +15,7 @@ Game::Game()
 	m_textures.Load("skull", "assets/images/Skull.png");
 	m_textures.Load("walk", "assets/images/walk.png");
 	m_textures.Load("background", "assets/images/pozadina.png");
+	m_textures.Load("knjiga", "assets/images/knjiga.png");
 
 	m_fonts.Load("font1", "assets/fonts/MOTB.ttf");
 
