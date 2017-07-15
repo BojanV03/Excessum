@@ -11,9 +11,7 @@ sf::Time Game::FPS = sf::seconds(1.0f / 60.0f);
 Game::Game()
 	:m_window(sf::VideoMode(WIDTH, HEIGHT), "Sfml Template")
 {
-	m_textures.Load("book", "assets/images/knjiga.jpg");
-	m_textures.Load("skull", "assets/images/Skull.png");
-	m_textures.Load("walk", "assets/images/walk.png");
+	m_textures.Load("walk", "assets/images/kauboj.png");
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
 

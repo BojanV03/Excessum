@@ -4,6 +4,7 @@
 #include "State.h"
 #include "Organism.h"
 #include <vector>
+#include "KeyboardInput.h"
 
 class PlayState : public State
 {
@@ -16,8 +17,12 @@ public:
   void Clean();
 private:
   std::vector<sf::Text> m_options;
-  float m_optionsX;
+
   sf::Sprite m_background;
+  sf::Clock m_clock;
+
+  float m_optionsX;
+  float m_spawnTime;
 
   // objects
   std::vector<Organism*> m_organisms;
@@ -33,5 +38,5 @@ private:
   const int OPTIONS_FONT_SIZE = 90;
 
 private:
-
+  void DeleteOrganism(size_t indeks);
 };
