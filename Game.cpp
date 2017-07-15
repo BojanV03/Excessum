@@ -46,33 +46,13 @@ void Game::Update(float dt)
 void Game::Render()
 {
 	m_window.clear();
-<<<<<<< HEAD
 	m_currentState->Render(m_window);
-=======
-	m_animation->Render(m_window);
-	for(auto i = people.begin(); i != people.end(); i++)
-	{
-		Organism *a = *i;
-		a->Render(m_window);
-		a->Move();
-		if(a->m_image.getPosition().x > WIDTH*1.1 || a->m_image.getPosition().y + a->m_image.getLocalBounds().width < WIDTH*0.1)
-		{
-	//		people.erase(i);
-	//		delete a;
-		}
-	}
->>>>>>> d92d9da8bc03edb6bc7bbbdb43a8bb428568c3cd
 	m_window.display();
 }
 void Game::ProcessEvents()
 {
 	sf::Event event;
-
-	if(std::rand()%1000 == 7)
-	{
-		Organism* a = new Organism(m_textures.Get("skull"));
-		people.push_back(a);
-	}
+	
 	while (m_window.pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
 			m_window.close();
