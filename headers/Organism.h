@@ -29,7 +29,7 @@ protected:
 private:
 	std::string m_name;
   int m_situation;
-  int m_VEL_MIN = 1;
-  int m_VEL_MAX = 2;
+  int m_VEL_MIN = 2;
+  int m_VEL_MAX = 3;
   int m_velocity;
 };

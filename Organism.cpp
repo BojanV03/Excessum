@@ -8,6 +8,7 @@ Organism::Organism()
 
 Organism::Organism(const sf::Texture &a)
 {
+	srand(time(NULL));
 	m_image.setTexture(a);
 	m_situation = rand() % 2;
 	int y = (rand() % (int)(HEIGHT/3)) + HEIGHT/3;
@@ -25,23 +26,27 @@ Organism::Organism(const sf::Texture &a)
 	std::cout << m_name << std::endl;
 	if(m_situation == 0)
 	{
-		m_image.setPosition(10, 10);
-//		m_image.setPosition(-m_image.getLocalBounds().width, y);
-}
+//		m_image.setPosition(10, 10);
+		m_image.setPosition(-m_anim->getWidth(), y);
+		m_anim = new Animation(m_image, 0, 0, 102, 148, 6, 0.1, RIGHT);
+		std::cout << "DESNO" << '\n';
+	}
 	else
 	{
-		m_image.setPosition(10, 10);
-	//	m_image.setPosition(WIDTH, y);
+//		m_image.setPosition(10, 10);
+		m_image.setPosition(WIDTH, y);
+		m_anim = new Animation(m_image, 0, 0, 102, 148, 6, 0.1, LEFT);
+		std::cout << "DESNO" << '\n';
 	}
 	m_velocity = (rand() % (m_VEL_MAX-m_VEL_MIN))+m_VEL_MIN;
 	float razmera;
-	razmera = 0.22 + ((1.0*y-HEIGHT/3)/HEIGHT)*(0.66);
+	razmera = 0.5 + ((1.0*y-HEIGHT/3)/HEIGHT)*(1.5);
 	m_image.setScale(razmera, razmera);
-	m_anim = new Animation(m_image, 0, 0, 102, 148, 6, 0.1, RIGHT);
 }
 
 void Organism::Update ()
 {		// Changing position of organism according to velocity in coordinate system
+	
 	if (m_situation == 0)
 	{
 		m_image.setPosition(m_image.getPosition().x + m_velocity, m_image.getPosition().y);
@@ -49,6 +54,7 @@ void Organism::Update ()
 	else if (m_situation == 1) {
 		m_image.setPosition(m_image.getPosition().x - m_velocity, m_image.getPosition().y);
 	}
+	m_anim->setPosition(m_image.getPosition().x, m_image.getPosition().y);
 	m_anim->Update();
 }
 
@@ -60,7 +66,7 @@ void Organism::Render(sf::RenderWindow &window)
 	text.setString(m_name);
 	text.setFont(font);
 	text.setCharacterSize(50);
-	text.setPosition(m_image.getPosition().x + m_image.getLocalBounds().width/2 - text.getLocalBounds().width/2, m_image.getPosition().y-30);
+	text.setPosition(m_image.getPosition().x + m_anim->getWidth()/2 - text.getLocalBounds().width/2, m_image.getPosition().y-text.getLocalBounds().height*1.1);
 	text.setFillColor(sf::Color::White);
 	window.draw(text);
 	m_anim->Render(window);
