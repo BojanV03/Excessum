@@ -1,4 +1,4 @@
-  #pragma once
+#pragma once
 #include <SFML/Graphics.hpp>
 enum Direction
 {
@@ -9,7 +9,7 @@ class Animation
 {
 public:
 
-  Animation(const sf::Texture&, int x, int y, int width, int height, int num, float time, Direction direction);
+  Animation(const sf::Sprite& sprite, int x, int y, int width, int height, int num, float time, Direction direction);
 
   void Update();
   void Render(sf::RenderWindow& window);

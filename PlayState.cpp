@@ -11,7 +11,7 @@ PlayState::PlayState(Game* game)
 
   m_optionsAnimation = false;
 
-  m_animation = new Animation(p_game->Textures().Get("walk"), 0, 0, 102, 148, 6, 0.1, RIGHT);
+  m_animation = new Animation(sf::Sprite(p_game->Textures().Get("walk")), 0, 0, 102, 148, 6, 0.1, LEFT);
 }
 PlayState::~PlayState()
 {
