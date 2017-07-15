@@ -11,8 +11,9 @@ Game::Game()
 {
 	m_textures.Load("book", "assets/images/knjiga.jpg");
 	m_textures.Load("skull", "assets/images/Skull.png");
+	m_textures.Load("walk", "assets/images/dragon.png");
 
-	m_book = Book(m_textures);
+	m_animation = new Animation(m_textures.Get("walk"), 0, 0, 100, 100, 5, 0.1);
 }
 Game::~Game()
 {
@@ -36,13 +37,13 @@ void Game::Run()
 }
 void Game::Update(float dt)
 {
-
+	m_animation->Update();
 }
 
 void Game::Render()
 {
 	m_window.clear();
-	m_book.Render(m_window);
+	m_animation->Render(m_window);
 	m_window.display();
 }
 void Game::ProcessEvents()
