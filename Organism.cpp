@@ -1,14 +1,13 @@
 #include "headers/Organism.h"
+#include <chrono>
 #include <iostream>
 
 Organism::Organism()
 {
-
 }
 
 Organism::Organism(const sf::Texture &a)
 {
-	srand(time(NULL));
 	m_image.setTexture(a);
 	m_situation = rand() % 2;
 	int y = (rand() % (int)(HEIGHT/3)) + HEIGHT/3;
@@ -44,15 +43,20 @@ Organism::Organism(const sf::Texture &a)
 	m_velocity = (rand() % (m_VEL_MAX-m_VEL_MIN))+m_VEL_MIN;
 }
 
-void Organism::Update ()
+Organism::~Organism()
+{
+	delete m_anim;
+}
+
+void Organism::Update (float dt)
 {		// Changing position of organism according to velocity in coordinate system
 
 	if (m_situation == 0)
 	{
-		m_anim->SetPosition(m_anim->GetX() + m_velocity, m_anim->GetY());
+		m_anim->SetPosition(m_anim->GetX() + m_velocity*dt, m_anim->GetY());
 	}
 	else if (m_situation == 1) {
-		m_anim->SetPosition(m_anim->GetX() - m_velocity, m_anim->GetY());
+		m_anim->SetPosition(m_anim->GetX() - m_velocity*dt, m_anim->GetY());
 	}
 	//m_anim->SetPosition(m_anim->GetX(), m_anim->GetY());
 	m_anim->Update();

@@ -13,12 +13,16 @@ public:
 
   void Update(float dt);
   void Render(sf::RenderWindow& window);
+  void Clean();
 private:
   std::vector<sf::Text> m_options;
   float m_optionsX;
-  Organism *o;
+  sf::Sprite m_background;
 
-  // bools
+  // objects
+  std::vector<Organism*> m_organisms;
+
+  // bools - logic
   bool m_optionsAnimation;
   bool m_bookAnimation;
 
@@ -26,4 +30,7 @@ private:
   const int OPTIONS_MOVE_STEP = 400;
   const int OPTIONS_LINE_HEIGHT = 120;
   const int OPTIONS_FONT_SIZE = 90;
+
+private:
+
 };

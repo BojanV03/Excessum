@@ -16,9 +16,10 @@ class Organism
 public:
   Organism();
   Organism(const sf::Texture&);
+	~Organism();
 
 	void Resize();
-  void Update();
+  void Update(float dt);
 	void Render(sf::RenderWindow &window);
 
 	Animation *m_anim;
@@ -29,7 +30,7 @@ protected:
 private:
 	std::string m_name;
   int m_situation;
-  int m_VEL_MIN = 2;
-  int m_VEL_MAX = 3;
+  int m_VEL_MIN = 200;
+  int m_VEL_MAX = 400;
   int m_velocity;
 };

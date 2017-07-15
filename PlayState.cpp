@@ -11,11 +11,14 @@ PlayState::PlayState(Game* game)
 
   m_optionsAnimation = false;
 
-  o = new Organism(p_game->Textures().Get("walk"));
-
+  for (int i = 0; i < 5; i++) {
+    m_organisms.push_back(new Organism(p_game->Textures().Get("walk")));
+  }
+  m_background = sf::Sprite(p_game->Textures().Get("background"));
 }
 PlayState::~PlayState()
 {
+  Clean();
 }
 void PlayState::Update(float dt)
 {
@@ -38,14 +41,27 @@ void PlayState::Update(float dt)
     //m_startGame = true;
     return ;
   }
-  o->Update();
+  for (auto it = m_organisms.begin(); it != m_organisms.end(); it++) {
+    (*it)->Update(dt);
+  }
 }
 void PlayState::Render(sf::RenderWindow& window)
 {
+  window.draw(m_background);
   if (m_optionsAnimation) {
     for (auto it = m_options.cbegin(); it != m_options.cend(); it++) {
       window.draw(*it);
     }
   }
-  o->Render(window);
+  for (auto it = m_organisms.begin(); it != m_organisms.end(); it++) {
+    (*it)->Render(window);
+  }
+}
+void PlayState::Clean()
+{
+  // Brisanje organizama
+  //for (size_t i = 0; i < m_organisms.size(); i++) {
+    //m_organisms[i] = m_organisms.back();
+    //m_organisms.pop_back();
+  //}
 }

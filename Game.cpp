@@ -14,10 +14,12 @@ Game::Game()
 	m_textures.Load("book", "assets/images/knjiga.jpg");
 	m_textures.Load("skull", "assets/images/Skull.png");
 	m_textures.Load("walk", "assets/images/walk.png");
+	m_textures.Load("background", "assets/images/pozadina.png");
 
 	m_fonts.Load("font1", "assets/fonts/MOTB.ttf");
 
 	m_currentState = new PlayState(this);
+	srand(time(NULL));
 }
 Game::~Game()
 {
