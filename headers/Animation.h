@@ -2,8 +2,8 @@
 #include <SFML/Graphics.hpp>
 enum Direction
 {
-  Right = 0,
-  Left = 1
+  RIGHT = 0,
+  LEFT = 1
 };
 class Animation
 {

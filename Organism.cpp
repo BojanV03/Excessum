@@ -1,5 +1,6 @@
 #include "headers/Organism.h"
 #include <iostream>
+
 Organism::Organism()
 {
 
@@ -56,7 +57,7 @@ void Organism::Render(sf::RenderWindow &window)
 	text.setString(m_name);
 	text.setFont(font);
 	text.setCharacterSize(50);
-	text.setPosition(m_image.getPosition().x + text.getLocalBounds().width/2, m_image.getPosition().y-30);
+	text.setPosition(m_image.getPosition().x + m_image.getLocalBounds().width/2 - text.getLocalBounds().width/2, m_image.getPosition().y-30);
 	text.setFillColor(sf::Color::White);
 	window.draw(m_image);
 	window.draw(text);
