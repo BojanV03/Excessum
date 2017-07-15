@@ -11,13 +11,14 @@ Game::Game()
 {
 	m_textures.Load("book", "assets/images/knjiga.jpg");
 	m_textures.Load("skull", "assets/images/Skull.png");
-	m_textures.Load("walk", "assets/images/dragon.png");
 
-	m_animation = new Animation(m_textures.Get("walk"), 0, 0, 100, 100, 5, 0.1);
+	m_fonts.Load("font1", "assets/fonts/MOTB.ttf");
+
+	m_currentState = new PlayState(this);
 }
 Game::~Game()
 {
-
+	delete m_currentState;
 }
 void Game::Run()
 {
@@ -37,13 +38,13 @@ void Game::Run()
 }
 void Game::Update(float dt)
 {
-	m_animation->Update();
+	m_currentState->Update(dt);
 }
 
 void Game::Render()
 {
 	m_window.clear();
-	m_animation->Render(m_window);
+	m_currentState->Render(m_window);
 	m_window.display();
 }
 void Game::ProcessEvents()
@@ -61,4 +62,17 @@ void Game::ProcessEvents()
 			std::cout << "Ubijena osoba " << s << std::endl;
 		}*/
 	}
+}
+const TextureManager& Game::Textures() const
+{
+	return m_textures;
+}
+const FontManager& Game::Fonts() const
+{
+	return m_fonts;
+}
+void Game::ChangeState(State* state)
+{
+	delete m_currentState;
+	m_currentState = state;
 }
