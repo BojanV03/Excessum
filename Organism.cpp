@@ -24,24 +24,24 @@ Organism::Organism(const sf::Texture &a)
 	m_name = std::string(firstName + " " + lastName);
 
 	std::cout << m_name << std::endl;
+	float razmera;
+	razmera = 0.5 + ((1.0*y-HEIGHT/3)/HEIGHT)*(1.5);
+	m_image.setScale(razmera, razmera);
 	if(m_situation == 0)
 	{
 //		m_image.setPosition(10, 10);
 		m_anim = new Animation(m_image, 0, 0, 102, 148, 6, 0.1, RIGHT);
-		m_image.setPosition(-m_anim->getWidth(), y);
+		m_anim->SetPosition(-m_anim->GetWidth(), y);
 		std::cout << "Levo" << '\n';
 	}
 	else
 	{
 //		m_image.setPosition(10, 10);
-		m_image.setPosition(WIDTH, y);
 		m_anim = new Animation(m_image, 0, 0, 102, 148, 6, 0.1, LEFT);
+		m_anim->SetPosition(WIDTH, y);
 		std::cout << "DESNO" << '\n';
 	}
 	m_velocity = (rand() % (m_VEL_MAX-m_VEL_MIN))+m_VEL_MIN;
-	float razmera;
-	razmera = 0.5 + ((1.0*y-HEIGHT/3)/HEIGHT)*(1.5);
-	m_image.setScale(razmera, razmera);
 }
 
 void Organism::Update ()
@@ -49,12 +49,12 @@ void Organism::Update ()
 
 	if (m_situation == 0)
 	{
-		m_image.setPosition(m_image.getPosition().x + m_velocity, m_image.getPosition().y);
+		m_anim->SetPosition(m_anim->GetX() + m_velocity, m_anim->GetY());
 	}
 	else if (m_situation == 1) {
-		m_image.setPosition(m_image.getPosition().x - m_velocity, m_image.getPosition().y);
+		m_anim->SetPosition(m_anim->GetX() - m_velocity, m_anim->GetY());
 	}
-	m_anim->setPosition(m_image.getPosition().x, m_image.getPosition().y);
+	//m_anim->SetPosition(m_anim->GetX(), m_anim->GetY());
 	m_anim->Update();
 }
 
@@ -65,8 +65,8 @@ void Organism::Render(sf::RenderWindow &window)
 	font.loadFromFile("assets/fonts/MOTB.ttf");
 	text.setString(m_name);
 	text.setFont(font);
-	text.setCharacterSize(50);
-	text.setPosition(m_image.getPosition().x + m_anim->getWidth()/2 - text.getLocalBounds().width/2, m_image.getPosition().y-text.getLocalBounds().height*1.1);
+	text.setCharacterSize(35);
+	text.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - text.getLocalBounds().width/2, m_anim->GetY()-text.getLocalBounds().height*2.0);
 
 	text.setFillColor(sf::Color::White);
 	window.draw(text);

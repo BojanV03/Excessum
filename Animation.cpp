@@ -14,17 +14,18 @@ Animation::Animation(const sf::Sprite& sprite, int x, int y, int width, int heig
   m_clock.restart();
 }
 
-int Animation::getWidth() const
+int Animation::GetWidth() const
 {
   return m_width;
 }
 
-int Animation::getHeight() const
+int Animation::GetHeight() const
 {
   return m_height;
 }
-
-void Animation::setPosition(int x, int y)
+int Animation::GetX() const { return m_x; }
+int Animation::GetY() const { return m_y; }
+void Animation::SetPosition(int x, int y)
 {
   m_x = x;
   m_y = y;

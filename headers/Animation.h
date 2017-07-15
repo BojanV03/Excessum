@@ -11,12 +11,15 @@ public:
 
   Animation(const sf::Sprite& sprite, int x, int y, int width, int height, int num, float time, Direction direction);
 
-  void setPosition(int x, int y);
+  void SetPosition(int x, int y);
   void Update();
   void Render(sf::RenderWindow& window);
 
-  int getWidth() const; 
-  int getHeight() const;
+  int GetWidth() const;
+  int GetHeight() const;
+
+  int GetX() const;
+  int GetY() const;
 private:
   sf::Clock m_clock;
   sf::Sprite m_spriteSheet;
