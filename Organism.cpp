@@ -27,9 +27,9 @@ Organism::Organism(const sf::Texture &a)
 	if(m_situation == 0)
 	{
 //		m_image.setPosition(10, 10);
-		m_image.setPosition(-m_anim->getWidth(), y);
 		m_anim = new Animation(m_image, 0, 0, 102, 148, 6, 0.1, RIGHT);
-		std::cout << "DESNO" << '\n';
+		m_image.setPosition(-m_anim->getWidth(), y);
+		std::cout << "Levo" << '\n';
 	}
 	else
 	{
@@ -46,7 +46,7 @@ Organism::Organism(const sf::Texture &a)
 
 void Organism::Update ()
 {		// Changing position of organism according to velocity in coordinate system
-	
+
 	if (m_situation == 0)
 	{
 		m_image.setPosition(m_image.getPosition().x + m_velocity, m_image.getPosition().y);
@@ -67,6 +67,7 @@ void Organism::Render(sf::RenderWindow &window)
 	text.setFont(font);
 	text.setCharacterSize(50);
 	text.setPosition(m_image.getPosition().x + m_anim->getWidth()/2 - text.getLocalBounds().width/2, m_image.getPosition().y-text.getLocalBounds().height*1.1);
+
 	text.setFillColor(sf::Color::White);
 	window.draw(text);
 	m_anim->Render(window);
