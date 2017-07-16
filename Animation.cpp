@@ -12,6 +12,7 @@ Animation::Animation(const sf::Sprite& sprite, int x, int y, int width, int heig
     //m_spriteSheet = sf::Sprite(texture, sf::IntRect(m_imgX + m_width, m_imgY, -m_width, m_height));
   }
   m_clock.restart();
+  m_active = true;
 }
 Animation::~Animation()
 {
@@ -32,23 +33,28 @@ void Animation::SetPosition(float x, float y)
   m_x = x;
   m_y = y;
 }
-void Animation::Update()
+bool Animation::Update()
 {
-  if (m_clock.getElapsedTime().asSeconds() > m_time) {
+  if (m_active) {
+    if (m_clock.getElapsedTime().asSeconds() > m_time) {
 
-    if (m_direction == LEFT) {
-      m_spriteSheet.setTextureRect(sf::IntRect(m_imgX + m_width, m_imgY, -m_width, m_height));
-    } else {
-      m_spriteSheet.setTextureRect(sf::IntRect(m_imgX, m_imgY, m_width, m_height));
-    }
+      if (m_direction == LEFT) {
+        m_spriteSheet.setTextureRect(sf::IntRect(m_imgX + m_width, m_imgY, -m_width, m_height));
+      } else {
+        m_spriteSheet.setTextureRect(sf::IntRect(m_imgX, m_imgY, m_width, m_height));
+      }
 
-    if (m_imgX == m_num * m_width - m_width) {
-      m_imgX = 0;
-    } else {
-      m_imgX += m_width;
+      if (m_imgX == m_num * m_width - m_width) {
+        m_imgX = 0;
+        m_clock.restart();
+        return true; // Kada se zavrsi animacija, Update vraca true
+      } else {
+        m_imgX += m_width;
+      }
+      m_clock.restart();
     }
-    m_clock.restart();
   }
+  return false;
 }
 void Animation::Render(sf::RenderWindow& window)
 {
@@ -58,4 +64,8 @@ void Animation::Render(sf::RenderWindow& window)
 Direction Animation::GetDirection() const
 {
   return m_direction;
+}
+void Animation::SetActive(bool active)
+{
+  m_active = active;
 }

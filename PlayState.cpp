@@ -10,9 +10,12 @@ PlayState::PlayState(Game* game)
   m_options[1].setPosition(m_optionsX, m_options[0].getPosition().y + OPTIONS_LINE_HEIGHT);
 
   m_knjiga = Book(p_game->Textures(), p_game->Fonts());
-  m_optionsAnimation = false;  m_background = sf::Sprite(p_game->Textures().Get("background"));
-
+  m_background = sf::Sprite(p_game->Textures().Get("background"));
+  m_badge = sf::Sprite(p_game->Textures().Get("bedz"));
+  m_badge.scale(0.3, 0.3);
+  m_badge.setPosition(m_options[0].getGlobalBounds().left + m_options[0].getGlobalBounds().width + 20, m_options[0].getGlobalBounds().top);
   m_spawnTime = 2;
+  m_selectedOption = 0;
   m_clock.restart();
 
   m_optionsAnimation = false;
@@ -20,6 +23,7 @@ PlayState::PlayState(Game* game)
   m_peopleMoving = false;
   m_drawBook = false;
   m_drawMenu = true;
+  m_menuActive = true;
 }
 PlayState::~PlayState()
 {
@@ -28,7 +32,7 @@ PlayState::~PlayState()
 
 void PlayState::Keyboard(char key)
 {
-  std::cout << key << std::endl;
+  //std::cout << key << std::endl;
 
   m_inputText.push_back(key);
 
@@ -45,7 +49,7 @@ void PlayState::Keyboard(char key)
       isFound = true;
       if((*it)->GetName().size() == str.size())
       {
-        std::cout << "JEDNAKO " << i << "  "<<  m_organisms.size() << '\n';
+        //std::cout << "JEDNAKO " << i << "  "<<  m_organisms.size() << '\n';
         DeleteOrganism(i);
         m_knjiga.KillPerson(str);
         m_inputText.clear();
@@ -67,8 +71,8 @@ void PlayState::Update(float dt)
 {
   if (m_optionsAnimation) {
     m_optionsX -= OPTIONS_MOVE_STEP * dt;
-    if (m_optionsX + m_options[0].getLocalBounds().width < 0) {
-      std::cout << "Kraj animacije" << std::endl;
+    if (m_badge.getGlobalBounds().left + m_badge.getGlobalBounds().width < 0) {
+      
       m_optionsAnimation = false;
       m_drawMenu = false;
       m_bookAnimation = true;
@@ -77,6 +81,7 @@ void PlayState::Update(float dt)
     for (size_t i = 0; i < m_options.size(); i++) {
       m_options[i].setPosition(m_optionsX, m_options[i].getPosition().y);
       m_options[i].setPosition(m_optionsX, m_options[i].getPosition().y);
+      m_badge.setPosition(m_options[m_selectedOption].getGlobalBounds().left + m_options[m_selectedOption].getGlobalBounds().width + 20, m_badge.getPosition().y);
     }
   }
   if (m_bookAnimation) {
@@ -123,6 +128,7 @@ void PlayState::Render(sf::RenderWindow& window)
     for (auto it = m_options.cbegin(); it != m_options.cend(); it++) {
       window.draw(*it);
     }
+    window.draw(m_badge);
   }
   if (m_peopleMoving) {
     // iscrtavnje ljudi
@@ -160,10 +166,30 @@ void PlayState::AddPerson()
 }
 void PlayState::Controller(sf::Keyboard::Key& key)
 {
-  if (key == sf::Keyboard::Key::Space) {
-    if (!m_peopleMoving) {
-      m_optionsAnimation = true;
+  if (m_menuActive) {
+    if (key == sf::Keyboard::Key::S || key == sf::Keyboard::Key::Down) {
+      m_selectedOption++;
+      if (m_selectedOption == m_options.size()) {
+        m_selectedOption = 0;
+      }
+    } else if (key == sf::Keyboard::Key::W || key == sf::Keyboard::Key::Up) {
+      m_selectedOption--;
+      if (m_selectedOption < 0) {
+        m_selectedOption = m_options.size() - 1;
+      }
+    } else if (key == sf::Keyboard::Key::Space) {
+      if (m_selectedOption == m_options.size()-1) {
+        Clean();
+        exit(EXIT_SUCCESS);
+      }
+      if (m_selectedOption == 0) {
+        m_menuActive = false;
+        m_optionsAnimation = true;
+      }
     }
+    sf::Text option = m_options[m_selectedOption];
+    m_badge.setPosition(option.getGlobalBounds().left + option.getGlobalBounds().width + 20, option.getGlobalBounds().top);
+
   }
 }
 void PlayState::SortOrganisms()
