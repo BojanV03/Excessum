@@ -273,7 +273,7 @@ void PlayState::SortOrganisms()
 }
 void PlayState::AddExplosion(const std::string resourceName, float x, float y)
 {
-  Animation *animation = new Animation(sf::Sprite(p_game->Textures().Get(resourceName)), 0, 0, 108, 201, 6, 0.05, RIGHT);
+  Animation *animation = new Animation(sf::Sprite(p_game->Textures().Get(resourceName)), 0, 0, 108, 201, 11, 0.05, RIGHT);
   animation->SetPosition(x, y);
   m_animations.push_back(animation);
 }
