@@ -30,7 +30,7 @@ Book::Book(const TextureManager& textures, const FontManager& fonts)
 	m_hourglass.setScale(1.5, 1.5);
 
 	m_kills = 0;
-	m_time = 180;
+	m_time = 185.9;
   m_score = 0;
 }
 

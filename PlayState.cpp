@@ -59,7 +59,7 @@ void PlayState::ResetGame()
   m_spawnTime = 2;
   m_selectedOption = 0;
   m_book.isPlaying = false;
-  m_book.SetTime(180);
+  m_book.SetTime(185.9);
   m_clock.restart();
 }
 PlayState::~PlayState()
