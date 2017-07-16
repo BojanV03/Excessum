@@ -18,6 +18,9 @@ public:
   void AddPerson();
   void Keyboard(char key);
   void Controller(sf::Keyboard::Key& key); // za kretanje kroz meni
+
+
+
 private:
   std::vector<sf::Text> m_options;
 
@@ -33,6 +36,7 @@ private:
   // objects
   std::vector<Organism*> m_organisms;
   std::vector<char> m_inputText;
+  std::vector<Animation*> m_animations;
   Book m_book;
 
   // bools - logic
@@ -52,4 +56,8 @@ private:
 private:
   void DeleteOrganism(size_t indeks);
   void SortOrganisms();
+  void RenderAnimations(sf::RenderWindow& window);
+  void UpdateAnimations();
+  void RemoveAnimation(size_t index);
+  void AddExplosion(const std::string resourceName, float x, float y);
 };

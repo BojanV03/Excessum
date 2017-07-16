@@ -58,6 +58,7 @@ void PlayState::Keyboard(char key)
       if((*it)->GetName().size() == str.size())
       {
         //std::cout << "JEDNAKO " << i << "  "<<  m_organisms.size() << '\n';
+        AddExplosion("explosion", m_organisms[i]->GetAnimation().GetX()-30, m_organisms[i]->GetAnimation().GetY()-120);
         DeleteOrganism(i);
         m_book.KillPerson(str);
         m_inputText.clear();
@@ -133,6 +134,8 @@ void PlayState::Update(float dt)
         m_book.LoseTime(5);
       }
     }
+    UpdateAnimations();
+
   }
 }
 void PlayState::Render(sf::RenderWindow& window)
@@ -151,6 +154,7 @@ void PlayState::Render(sf::RenderWindow& window)
     for (auto it = m_organisms.begin(); it != m_organisms.end(); it++) {
       (*it)->Render(window);
     }
+    RenderAnimations(window);
   }
   if (m_drawBook) {
     // iscrtavanje knjige
@@ -193,7 +197,7 @@ void PlayState::Controller(sf::Keyboard::Key& key)
       if (m_selectedOption < 0) {
         m_selectedOption = m_options.size() - 1;
       }
-    } else if (key == sf::Keyboard::Key::Space) {
+    } else if (key == sf::Keyboard::Key::Space || key == sf::Keyboard::Key::Return) {
       if (m_selectedOption == m_options.size()-1) {
         Clean();
         exit(EXIT_SUCCESS);
@@ -213,4 +217,29 @@ void PlayState::SortOrganisms()
   std::sort(m_organisms.begin(), m_organisms.end(), [](const Organism* l, const Organism* r) {
     return l->GetAnimation().GetY() < r->GetAnimation().GetY();
   });
+}
+void PlayState::AddExplosion(const std::string resourceName, float x, float y)
+{
+  Animation *animation = new Animation(sf::Sprite(p_game->Textures().Get(resourceName)), 0, 0, 108, 201, 6, 0.05, RIGHT);
+  animation->SetPosition(x, y);
+  m_animations.push_back(animation);
+}
+void PlayState::UpdateAnimations()
+{
+  for (size_t i = 0; i < m_animations.size(); i++) {
+    if (m_animations[i]->Update()) {
+      RemoveAnimation(i);
+    }
+  }
+}
+void PlayState::RenderAnimations(sf::RenderWindow& window)
+{
+  for (size_t i = 0; i < m_animations.size(); i++) {
+    m_animations[i]->Render(window);
+  }
+}
+void PlayState::RemoveAnimation(size_t index)
+{
+  m_animations[index] = m_animations.back();
+  m_animations.pop_back();
 }

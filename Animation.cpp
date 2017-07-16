@@ -44,7 +44,7 @@ bool Animation::Update()
         m_spriteSheet.setTextureRect(sf::IntRect(m_imgX, m_imgY, m_width, m_height));
       }
 
-      if (m_imgX == m_num * m_width - m_width) {
+      if (m_imgX == m_num * m_width) {
         m_imgX = 0;
         m_clock.restart();
         return true; // Kada se zavrsi animacija, Update vraca true
