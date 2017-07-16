@@ -33,7 +33,7 @@ void Book::KillPerson(const std::string &ime)
 {
   m_names.push_front(std::string(ime));
 
-  if(m_names.size() >= 15)
+  if(m_names.size() >= 12)
   {
     m_names.pop_back();
   }
@@ -84,7 +84,7 @@ void Book::Render(sf::RenderWindow &window)
   window.draw(m_sprite);
 //  window.draw(m_skullSprite);
 
-  for(auto i = m_names.cbegin(); i != m_names.cend(); i++)
+  for(auto i = m_names.crbegin(); i != m_names.crend(); i++)
   {
     j++;
 		sf::Text text;
