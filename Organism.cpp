@@ -53,7 +53,6 @@ Organism::Organism(const sf::Texture &a, const sf::Font& font)
 
 	m_name = std::string(firstName + " " + lastName);
 
-	std::cout << m_name << std::endl;
 	float razmera;
 	razmera = 0.5 + ((1.0*y-HEIGHT/3)/HEIGHT)*(1.5);
 	m_image.setScale(razmera, razmera);
@@ -63,14 +62,12 @@ Organism::Organism(const sf::Texture &a, const sf::Font& font)
 //		m_image.setPosition(10, 10);
 		m_anim = new Animation(m_image, 0, 0, 108, 201, 5, 0.1*razmera, RIGHT);
 		m_anim->SetPosition(-m_anim->GetWidth(), y);
-		std::cout << "Levo" << '\n';
 	}
 	else
 	{
 //		m_image.setPosition(10, 10);
 		m_anim = new Animation(m_image, 0, 0, 108, 201, 5, 0.1*razmera, LEFT);
 		m_anim->SetPosition(WIDTH, y);
-		std::cout << "DESNO" << '\n';
 	}
 	m_velocity = 100*razmera;
 	m_font = sf::Font(font);

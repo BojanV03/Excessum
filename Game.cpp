@@ -19,6 +19,7 @@ Game::Game()
 
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
+	m_textures.Load("bedz", "assets/images/bedz.png");
 
 	m_fonts.Load("font1", "assets/fonts/OldTownRegular.ttf");
 	m_fonts.Load("rukopis", "assets/fonts/Sixteen_secodns.otf");

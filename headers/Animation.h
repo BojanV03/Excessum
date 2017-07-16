@@ -13,7 +13,7 @@ public:
   ~Animation();
 
   void SetPosition(float x, float y);
-  void Update();
+  bool Update();
   void Render(sf::RenderWindow& window);
 
   int GetWidth() const;
@@ -22,6 +22,7 @@ public:
   float GetX() const;
   float GetY() const;
 
+  void SetActive(bool active);
   Direction GetDirection() const;
 private:
   sf::Clock m_clock;
@@ -33,4 +34,5 @@ private:
   int m_imgX, m_imgY;
   float m_x, m_y;
   Direction m_direction;
+  bool m_active;
 };
