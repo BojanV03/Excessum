@@ -74,7 +74,7 @@ void PlayState::Update(float dt)
   if (m_optionsAnimation) {
     m_optionsX -= OPTIONS_MOVE_STEP * dt;
     if (m_badge.getGlobalBounds().left + m_badge.getGlobalBounds().width < 0) {
-      
+
       m_optionsAnimation = false;
       m_drawMenu = false;
       m_bookAnimation = true;
@@ -165,7 +165,7 @@ void PlayState::AddPerson()
 {
   int index = GetPersonIndex();
   std::string name("person" + std::to_string(index));
-  m_organisms.push_back(new Organism(p_game->Textures().Get(name), p_game->Fonts().Get("botovi")));
+  m_organisms.push_back(new Organism(p_game->Textures().Get(name), p_game->Fonts().Get("botovi"), m_organisms));
 }
 void PlayState::Controller(sf::Keyboard::Key& key)
 {

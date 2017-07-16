@@ -10,49 +10,110 @@ Organism::Organism()
 {
 }
 
-Organism::Organism(const sf::Texture &a, const sf::Font& font)
+Organism::Organism(const sf::Texture &a, const sf::Font& font, const std::vector<Organism*>& organisms)
 {
 	m_image.setTexture(a);
 	m_situation = rand() % 2;
-	std::string firstName, lastName;
+	std::string firstName = "Pera", lastName = "Detlic";
 	int y = (rand() % (int)(HEIGHT/6)) + HEIGHT/3;
 
 	if(CURRENT_PERSON < 50)
 	{
 		std::cout << "Easy Name #" << CURRENT_PERSON << ": ";
-		std::ifstream input("assets/data/easy.txt");
-		int name = rand() % EASY_SIZE;
 
-		for(int i = 0; i < name; i++)
+		std::ifstream input("assets/data/easy.txt");
+		std::string fullName;
+		bool validName;
+		do
 		{
-			input >> firstName >> lastName;
-		}
+			input = std::ifstream("assets/data/easy.txt");
+			validName = true;
+			int name = rand() % EASY_SIZE;
+
+			for(int i = 0; i < name; i++)
+			{
+				input >> firstName >> lastName;
+			}
+
+			fullName = std::string(firstName + " " + lastName);
+
+			for(auto i = organisms.cbegin(); i != organisms.cend(); i++)
+			{
+					if(!(*i)->GetName().compare(fullName))
+					{
+						validName = false;
+						std::cout << fullName << " == " << (*i)->GetName() << '\n';
+					}
+			}
+
+		} while(!validName);
+
 	}
 	else if(CURRENT_PERSON < 100)
 	{
-		std::ifstream input("assets/data/medium.txt");
-		int name = rand() % MEDIUM_SIZE;
-		std::cout << "Medium Name #" << CURRENT_PERSON << " with ID" << name << ": ";
+		std::cout << "Medium Name #" << CURRENT_PERSON << ": ";
 
-		for(int i = 0; i < name; i++)
+		std::ifstream input("assets/data/medium.txt");
+		std::string fullName;
+		bool validName;
+		do
 		{
-			input >> firstName >> lastName;
-		}
+			input = std::ifstream("assets/data/medium.txt");
+			validName = true;
+			int name = rand() % EASY_SIZE;
+
+			for(int i = 0; i < name; i++)
+			{
+				input >> firstName >> lastName;
+			}
+
+			fullName = std::string(firstName + " " + lastName);
+
+			for(auto i = organisms.cbegin(); i != organisms.cend(); i++)
+			{
+					if(!(*i)->GetName().compare(fullName))
+					{
+						validName = false;
+						std::cout << fullName << " == " << (*i)->GetName() << '\n';
+					}
+			}
+		} while(!validName);
 	}
 	else if(CURRENT_PERSON < 150)
 	{
-		std::ifstream input("assets/data/hard.txt");
-		int name = (rand() % HARD_SIZE);
-		std::cout << "Hard Name #" << CURRENT_PERSON << " with ID" << name << " :";
-
-		for(int i = 0; i < name; i++)
 		{
-			input >> firstName >> lastName;
+			std::cout << "Hard Name #" << CURRENT_PERSON << ": ";
+
+			std::ifstream input("assets/data/hard.txt");
+			std::string fullName;
+			bool validName;
+			do
+			{
+				input = std::ifstream("assets/data/hard.txt");
+				validName = true;
+				int name = rand() % EASY_SIZE;
+
+				for(int i = 0; i < name; i++)
+				{
+					input >> firstName >> lastName;
+				}
+
+				fullName = std::string(firstName + " " + lastName);
+
+				for(auto i = organisms.cbegin(); i != organisms.cend(); i++)
+				{
+						if(!(*i)->GetName().compare(fullName))
+						{
+							validName = false;
+							std::cout << fullName << " == " << (*i)->GetName() << '\n';
+						}
+				}
+
+			} while(!validName);
 		}
 	}
-
 	m_name = std::string(firstName + " " + lastName);
-
+	std::cout << m_name << std::endl;
 	float razmera;
 	razmera = 0.5 + ((1.0*y-HEIGHT/3)/HEIGHT)*(1.5);
 	m_image.setScale(razmera, razmera);
@@ -69,6 +130,7 @@ Organism::Organism(const sf::Texture &a, const sf::Font& font)
 		m_anim = new Animation(m_image, 0, 0, 108, 201, 5, 0.1*razmera, LEFT);
 		m_anim->SetPosition(WIDTH, y);
 	}
+
 	m_velocity = 100*razmera;
 	m_font = sf::Font(font);
 }
@@ -116,7 +178,7 @@ void Organism::Render(sf::RenderWindow &window)
 	m_renderText.setFont(m_font);
 	m_renderText.setCharacterSize(30);
 	m_renderText.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - m_renderText.getGlobalBounds().width/2, m_anim->GetY()-m_renderText.getCharacterSize()*1.2);
-
+	
 	m_renderText.setFillColor(m_textColor);
 	window.draw(m_renderText);
 	m_anim->Render(window);

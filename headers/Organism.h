@@ -15,7 +15,7 @@ class Organism
 {
 public:
   Organism();
-  Organism(const sf::Texture&, const sf::Font& font);
+  Organism(const sf::Texture &a, const sf::Font& font, const std::vector<Organism*>& listOfNames);
 	~Organism();
 
 	void Resize();
