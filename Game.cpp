@@ -17,6 +17,8 @@ Game::Game()
 	m_textures.Load("person4", "assets/images/person4.png"); // steampunk
 	m_textures.Load("person5", "assets/images/person5.png"); // baba
 	m_textures.Load("logo", "assets/images/logo.png"); // logo
+	m_textures.Load("lobanja", "assets/images/lobanja.png"); // lobanja
+	m_textures.Load("sat", "assets/images/sat.png");
 
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
