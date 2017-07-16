@@ -77,6 +77,7 @@ void PlayState::ResetGame()
   m_selectedOption = 0;
   m_book.isPlaying = false;
   m_book.SetTime(185.9);
+  m_book.SetScore(0);
   m_clock.restart();
 }
 PlayState::~PlayState()

@@ -81,7 +81,7 @@ unsigned Book::GetScore()
 
 void Book::SetScore(unsigned newScore)
 {
-  m_score = newScore;
+  m_kills = newScore;
 }
 
 void Book::AddToScore(unsigned n)
