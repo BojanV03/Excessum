@@ -13,6 +13,8 @@ Book::Book(const TextureManager& textures, const FontManager& fonts)
 	m_sprite.setTexture(textures.Get("knjiga"));
 	m_sprite.setScale(1.7, 1.7);
 
+	isPlaying = false;
+
   m_names = std::deque<std::string>();
 	// umesto HEIGHT-50 bilo je -> HEIGHT-m_sprite.getLocalBounds().height-75
   m_sprite.setPosition(WIDTH/2 - m_sprite.getLocalBounds().width/2-100, HEIGHT-50);
@@ -28,7 +30,7 @@ Book::Book(const TextureManager& textures, const FontManager& fonts)
 	m_hourglass.setScale(1.5, 1.5);
 
 	m_kills = 0;
-	m_time = 95.8;
+	m_time = 180;
   m_score = 0;
 }
 
@@ -93,7 +95,8 @@ void Book::LoseTime(float ammount)
 
 void Book::Update(float dt)
 {
-	m_time -= dt;
+	if(isPlaying)
+		m_time -= dt;
 }
 void Book::Render(sf::RenderWindow &window)
 {

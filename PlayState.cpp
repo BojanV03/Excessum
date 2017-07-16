@@ -32,6 +32,36 @@ PlayState::PlayState(Game* game)
   m_drawMenu = true;
   m_menuActive = true;
 }
+
+void PlayState::ResetGame()
+{
+  Clean();
+  m_optionsAnimation = false;
+  m_bookAnimation = false;
+  m_peopleMoving = false;
+  m_drawBook = false;
+  m_drawMenu = true;
+  m_menuActive = true;
+  m_optionsX = 100;
+  m_options[0].setFillColor(sf::Color::Black);
+  m_options[1].setFillColor(sf::Color::Black);
+  m_options[0].setPosition(m_optionsX, HEIGHT - 475);
+  m_options[1].setPosition(m_optionsX, m_options[0].getPosition().y + OPTIONS_LINE_HEIGHT);
+
+  m_badge = sf::Sprite(p_game->Textures().Get("bedz"));
+  m_badge.scale(0.25, 0.25);
+  m_badge.setPosition(m_options[0].getGlobalBounds().left + m_options[0].getGlobalBounds().width + 20, m_options[0].getGlobalBounds().top - 5);
+
+  m_logo = sf::Sprite(p_game->Textures().Get("logo"));
+  m_logo.scale(0.35, 0.35);
+  m_logo.setPosition(WIDTH - m_logo.getGlobalBounds().width - 150, HEIGHT/2 - m_logo.getGlobalBounds().height/2 + 35);
+
+  m_spawnTime = 2;
+  m_selectedOption = 0;
+  m_book.isPlaying = false;
+  m_book.SetTime(180);
+  m_clock.restart();
+}
 PlayState::~PlayState()
 {
   Clean();
@@ -105,11 +135,17 @@ void PlayState::Update(float dt)
     if (m_book.GetY() <= HEIGHT-m_book.GetSprite().getGlobalBounds().height + 170) {
       m_bookAnimation = false;
       m_peopleMoving = true;
+      m_book.isPlaying = true;
     }
     return ;
   }
   if (m_peopleMoving && m_drawBook) {
     m_book.Update(dt);
+    if(m_book.GetTime() < 0)
+    {
+      ResetGame();
+      return;
+    }
     if (m_clock.getElapsedTime().asSeconds() > m_spawnTime) {
       // Ako je proteklo vise od spawnTime
       // dodaj novog

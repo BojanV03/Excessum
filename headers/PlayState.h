@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "State.h"
 #include "Organism.h"
+#include "Book.h"
 #include <vector>
 
 class PlayState : public State
@@ -18,7 +19,7 @@ public:
   void AddPerson();
   void Keyboard(char key);
   void Controller(sf::Keyboard::Key& key); // za kretanje kroz meni
-
+  void ResetGame();
 
 
 private:
