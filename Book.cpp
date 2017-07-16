@@ -86,14 +86,6 @@ void Book::Update(float dt)
 void Book::Render(sf::RenderWindow &window)
 {
   int j = 0;
-	/********************/
-	sf::Text textTime;
-	textTime.setString(std::to_string(m_time));
-	textTime.setFont(m_rukopis);
-	textTime.setCharacterSize(30);
-	textTime.setPosition(100, 0);
-	textTime.setFillColor(sf::Color::Black);
-	window.draw(textTime);
 
 	window.draw(m_sprite);
 //  window.draw(m_skullSprite);

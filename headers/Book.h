@@ -40,6 +40,6 @@ private:
   sf::Font m_botovi;
   sf::Font m_rukopis;
   unsigned m_score;
-  float m_time = 60;
+  float m_time;
 	std::deque<std::string> m_names;
 };
