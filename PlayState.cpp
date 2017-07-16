@@ -99,7 +99,7 @@ void PlayState::Update(float dt)
     m_drawBook = true;
     m_knjiga.SetY(m_knjiga.GetY() - 200 *dt);
     // pomeram knjigu za 200 * dt na gore, kada dodje do vrednosti, stane
-    if (m_knjiga.GetY() <= HEIGHT-m_knjiga.GetSprite().getGlobalBounds().height+100) {
+    if (m_knjiga.GetY() <= HEIGHT-m_knjiga.GetSprite().getGlobalBounds().height + 170) {
       m_bookAnimation = false;
       m_peopleMoving = true;
     }
