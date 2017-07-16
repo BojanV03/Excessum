@@ -20,9 +20,9 @@ int main(int argc, char *argv[])
   }
   else
   {
-    music.setVolume(80);
+    music.setVolume(60);
 		music.setLoop(true);
-		
+
     music.play();
   }
 	game.Run();

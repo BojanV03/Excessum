@@ -5,6 +5,7 @@
 #include <iostream>
 #include <deque>
 #include "ResourceManager.h"
+#include <SFML/Audio.hpp>
 
 class Book
 {
@@ -29,7 +30,7 @@ public:
   void SetTime(float newTime);
   void LoseTime(float ammount);
 
-    bool isPlaying;
+  bool isPlaying;
 
   void Render(sf::RenderWindow &window);
 
@@ -45,6 +46,8 @@ private:
   sf::Font m_botovi;
   sf::Font m_rukopis;
   sf::Font m_stats;
+  sf::Sound sound;
+  sf::SoundBuffer buffer;
 
   unsigned m_score;
   float m_time;

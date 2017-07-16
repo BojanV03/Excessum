@@ -47,7 +47,7 @@ sf::Music PlayState::loadMusic(std::string music_filename, float music_frequency
     music.setPitch(music_frequency);
     music.setVolume(music_volume);
     music.setLoop(music_loop);
-    music.play();
+//music.play();
 }
 
 void PlayState::ResetGame()
