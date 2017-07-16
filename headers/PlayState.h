@@ -4,6 +4,7 @@
 #include "State.h"
 #include "Organism.h"
 #include "Book.h"
+#include "SFML/Audio.hpp"
 #include <vector>
 
 class PlayState : public State
@@ -20,7 +21,7 @@ public:
   void Keyboard(char key);
   void Controller(sf::Keyboard::Key& key); // za kretanje kroz meni
   void ResetGame();
-
+  sf::Music loadMusic(std::string music_filename, float music_frequency, float music_volume, bool music_loop);
 
 private:
   std::vector<sf::Text> m_options;

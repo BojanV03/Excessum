@@ -31,6 +31,23 @@ PlayState::PlayState(Game* game)
   m_drawBook = false;
   m_drawMenu = true;
   m_menuActive = true;
+
+//  loadMusic("asdfasef", 1.5, 80, true);
+
+}
+
+sf::Music PlayState::loadMusic(std::string music_filename, float music_frequency, float music_volume, bool music_loop)
+{
+    sf::Music music;
+    music.openFromFile("start_game.wav");
+    // if(!music.openFromFile("start_game.wav"))
+    // {
+    //     std::cout << "ERROR" << std::endl;
+    // }
+    music.setPitch(music_frequency);
+    music.setVolume(music_volume);
+    music.setLoop(music_loop);
+    music.play();
 }
 
 void PlayState::ResetGame()
