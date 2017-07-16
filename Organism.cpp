@@ -2,6 +2,10 @@
 #include <chrono>
 #include <iostream>
 
+#define EASY_SIZE 100
+#define MEDIUM_SIZE 149
+#define HARD_SIZE 111
+
 Organism::Organism()
 {
 }
@@ -10,14 +14,41 @@ Organism::Organism(const sf::Texture &a, const sf::Font& font)
 {
 	m_image.setTexture(a);
 	m_situation = rand() % 2;
-	int y = (rand() % (int)(HEIGHT/6)) + HEIGHT/3;
-	std::ifstream input("assets/data/names.txt");
-	int name = rand() % 200;
 	std::string firstName, lastName;
+	int y = (rand() % (int)(HEIGHT/6)) + HEIGHT/3;
 
-	for(int i = 0; i < name; i++)
+	if(CURRENT_PERSON < 50)
 	{
-		input >> firstName >> lastName;
+		std::cout << "Easy Name #" << CURRENT_PERSON << ": ";
+		std::ifstream input("assets/data/easy.txt");
+		int name = rand() % EASY_SIZE;
+
+		for(int i = 0; i < name; i++)
+		{
+			input >> firstName >> lastName;
+		}
+	}
+	else if(CURRENT_PERSON < 100)
+	{
+		std::ifstream input("assets/data/medium.txt");
+		int name = rand() % MEDIUM_SIZE;
+		std::cout << "Medium Name #" << CURRENT_PERSON << " with ID" << name << ": ";
+
+		for(int i = 0; i < name; i++)
+		{
+			input >> firstName >> lastName;
+		}
+	}
+	else if(CURRENT_PERSON < 150)
+	{
+		std::ifstream input("assets/data/hard.txt");
+		int name = (rand() % HARD_SIZE);
+		std::cout << "Hard Name #" << CURRENT_PERSON << " with ID" << name << " :";
+
+		for(int i = 0; i < name; i++)
+		{
+			input >> firstName >> lastName;
+		}
 	}
 
 	m_name = std::string(firstName + " " + lastName);
@@ -80,11 +111,16 @@ void Organism::Render(sf::RenderWindow &window)
 	m_renderText.setCharacterSize(30);
 	m_renderText.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - m_renderText.getLocalBounds().width/2, m_anim->GetY()-m_renderText.getLocalBounds().height*2.0);
 
-	m_renderText.setFillColor(sf::Color::White);
+	m_renderText.setFillColor(m_textColor);
 	window.draw(m_renderText);
 	m_anim->Render(window);
 }
 const Animation& Organism::GetAnimation() const
 {
 	return *m_anim;
+}
+
+void Organism::SetColor(sf::Color c)
+{
+	m_textColor = sf::Color(c);
 }

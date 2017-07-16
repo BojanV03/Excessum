@@ -26,6 +26,7 @@ public:
 
 	void SetRenderText(const std::string& s);
 
+	void SetColor(sf::Color);
 private:
 	std::string m_name;
   int m_situation;
@@ -37,4 +38,5 @@ private:
 	sf::Sprite m_image;
 	sf::Text m_renderText;
 	sf::Font m_font;
+	sf::Color m_textColor = sf::Color::White;
 };

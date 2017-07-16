@@ -16,6 +16,7 @@ Game::Game()
 	m_textures.Load("person3", "assets/images/person3.png"); // zena
 	m_textures.Load("person4", "assets/images/person4.png"); // steampunk
 	m_textures.Load("person5", "assets/images/person5.png"); // baba
+
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
 
@@ -24,6 +25,7 @@ Game::Game()
 	m_fonts.Load("botovi", "assets/fonts/OpenSans-CondLight.ttf");
 
 	m_currentState = new PlayState(this);
+	CURRENT_PERSON = 0;
 	srand(time(NULL)); // Ovo mozda skinuti odavde
 }
 Game::~Game()

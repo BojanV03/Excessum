@@ -42,6 +42,7 @@ void PlayState::Keyboard(char key)
     if((*it)->GetName().find(str) == 0)
     {
       (*it)->SetRenderText((*it)->GetName().substr(str.size()));
+      (*it)->SetColor(sf::Color::Red);
       isFound = true;
       if((*it)->GetName().size() == str.size())
       {
@@ -55,6 +56,7 @@ void PlayState::Keyboard(char key)
     else
     {
       (*it)->SetRenderText((*it)->GetName());
+      (*it)->SetColor(sf::Color::White);
     }
   }
   if(!isFound)
@@ -95,6 +97,7 @@ void PlayState::Update(float dt)
     if (m_clock.getElapsedTime().asSeconds() > m_spawnTime) {
       // Ako je proteklo vise od spawnTime
       // dodaj novog
+      CURRENT_PERSON++;
       AddPerson();
 
       // sortiranje zbog preklapanja
