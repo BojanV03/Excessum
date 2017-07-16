@@ -19,6 +19,7 @@ Game::Game()
 	m_textures.Load("logo", "assets/images/logo.png"); // logo
 	m_textures.Load("lobanja", "assets/images/lobanja.png"); // lobanja
 	m_textures.Load("sat", "assets/images/sat.png");
+	m_textures.Load("explosion", "assets/images/explosion.png");
 
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
