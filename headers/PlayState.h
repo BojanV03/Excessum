@@ -17,7 +17,7 @@ public:
   int GetPersonIndex() const;
   void AddPerson();
   void Keyboard(char key);
-
+  void Controller(sf::Keyboard::Key& key); // za kretanje kroz meni
 private:
   std::vector<sf::Text> m_options;
 
@@ -30,11 +30,14 @@ private:
   // objects
   std::vector<Organism*> m_organisms;
   std::vector<char> m_inputText;
-  Book knjiga;
-  
+  Book m_knjiga;
+
   // bools - logic
   bool m_optionsAnimation;
   bool m_bookAnimation;
+  bool m_peopleMoving;
+  bool m_drawMenu;
+  bool m_drawBook;
 
 
 private:
@@ -44,4 +47,5 @@ private:
 
 private:
   void DeleteOrganism(size_t indeks);
+  void SortOrganisms();
 };

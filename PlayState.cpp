@@ -9,11 +9,17 @@ PlayState::PlayState(Game* game)
   m_options[0].setPosition(m_optionsX, HEIGHT - 500);
   m_options[1].setPosition(m_optionsX, m_options[0].getPosition().y + OPTIONS_LINE_HEIGHT);
 
-  knjiga = Book(p_game->Textures(), p_game->Fonts());
+  m_knjiga = Book(p_game->Textures(), p_game->Fonts());
   m_optionsAnimation = false;  m_background = sf::Sprite(p_game->Textures().Get("background"));
 
   m_spawnTime = 2;
   m_clock.restart();
+
+  m_optionsAnimation = false;
+  m_bookAnimation = false;
+  m_peopleMoving = false;
+  m_drawBook = false;
+  m_drawMenu = true;
 }
 PlayState::~PlayState()
 {
@@ -41,7 +47,7 @@ void PlayState::Keyboard(char key)
       {
         std::cout << "JEDNAKO " << i << "  "<<  m_organisms.size() << '\n';
         DeleteOrganism(i);
-        knjiga.KillPerson(str);
+        m_knjiga.KillPerson(str);
         m_inputText.clear();
         return;
       }
@@ -64,6 +70,7 @@ void PlayState::Update(float dt)
     if (m_optionsX + m_options[0].getLocalBounds().width < 0) {
       std::cout << "Kraj animacije" << std::endl;
       m_optionsAnimation = false;
+      m_drawMenu = false;
       m_bookAnimation = true;
       return;
     }
@@ -74,47 +81,59 @@ void PlayState::Update(float dt)
   }
   if (m_bookAnimation) {
     // kod za izlazak knjige. Kad izadje, krece igra
-    m_bookAnimation = false;
-    //m_startGame = true;
+    //m_bookAnimation = false;
+    m_drawBook = true;
+    m_knjiga.SetY(m_knjiga.GetY() - 200 *dt);
+    // pomeram knjigu za 200 * dt na gore, kada dodje do vrednosti, stane
+    if (m_knjiga.GetY() <= HEIGHT-m_knjiga.GetSprite().getGlobalBounds().height+100) {
+      m_bookAnimation = false;
+      m_peopleMoving = true;
+    }
     return ;
   }
-  if (m_clock.getElapsedTime().asSeconds() > m_spawnTime) {
-    // Ako je proteklo vise od spawnTime
-    // dodaj novog
-    AddPerson();
+  if (m_peopleMoving && m_drawBook) {
+    if (m_clock.getElapsedTime().asSeconds() > m_spawnTime) {
+      // Ako je proteklo vise od spawnTime
+      // dodaj novog
+      AddPerson();
 
-    // sortiranje zbog preklapanja
-    std::sort(m_organisms.begin(), m_organisms.end(), [](const Organism* l, const Organism* r) {
-      return l->GetAnimation().GetY() < r->GetAnimation().GetY();
-    });
-    m_clock.restart();
-  }
-  for (size_t i = 0; i < m_organisms.size(); i++) {
-    m_organisms[i]->Update(dt);
+      // sortiranje zbog preklapanja
+      SortOrganisms();
+      m_clock.restart();
+    }
+    for (size_t i = 0; i < m_organisms.size(); i++) {
+      m_organisms[i]->Update(dt);
 
-    if ((m_organisms[i]->GetAnimation().GetX() > WIDTH &&
-        m_organisms[i]->GetAnimation().GetDirection() == RIGHT) ||
-        (m_organisms[i]->GetAnimation().GetX() + m_organisms[i]->GetAnimation().GetWidth() < 0 &&
-         m_organisms[i]->GetAnimation().GetDirection() == LEFT))
-    {
-      // Izasao izvan ekrana
-      DeleteOrganism(i);
+      if ((m_organisms[i]->GetAnimation().GetX() > WIDTH &&
+          m_organisms[i]->GetAnimation().GetDirection() == RIGHT) ||
+          (m_organisms[i]->GetAnimation().GetX() + m_organisms[i]->GetAnimation().GetWidth() < 0 &&
+           m_organisms[i]->GetAnimation().GetDirection() == LEFT))
+      {
+        // Izasao izvan ekrana
+        DeleteOrganism(i);
+      }
     }
   }
-
 }
 void PlayState::Render(sf::RenderWindow& window)
 {
   window.draw(m_background);
-  if (m_optionsAnimation) {
+  if (m_drawMenu) {
+    // iscrtavanje menija i logoa
     for (auto it = m_options.cbegin(); it != m_options.cend(); it++) {
       window.draw(*it);
     }
   }
-  for (auto it = m_organisms.begin(); it != m_organisms.end(); it++) {
-    (*it)->Render(window);
+  if (m_peopleMoving) {
+    // iscrtavnje ljudi
+    for (auto it = m_organisms.begin(); it != m_organisms.end(); it++) {
+      (*it)->Render(window);
+    }
   }
-	knjiga.Render(window);
+  if (m_drawBook) {
+    // iscrtavanje knjige
+    m_knjiga.Render(window);
+  }
 }
 void PlayState::Clean()
 {
@@ -127,6 +146,7 @@ void PlayState::DeleteOrganism(size_t indeks)
 {
   m_organisms[indeks] = m_organisms.back();
   m_organisms.pop_back();
+  SortOrganisms();
 }
 int PlayState::GetPersonIndex() const
 {
@@ -137,4 +157,18 @@ void PlayState::AddPerson()
   int index = GetPersonIndex();
   std::string name("person" + std::to_string(index));
   m_organisms.push_back(new Organism(p_game->Textures().Get(name), p_game->Fonts().Get("botovi")));
+}
+void PlayState::Controller(sf::Keyboard::Key& key)
+{
+  if (key == sf::Keyboard::Key::Space) {
+    if (!m_peopleMoving) {
+      m_optionsAnimation = true;
+    }
+  }
+}
+void PlayState::SortOrganisms()
+{
+  std::sort(m_organisms.begin(), m_organisms.end(), [](const Organism* l, const Organism* r) {
+    return l->GetAnimation().GetY() < r->GetAnimation().GetY();
+  });
 }

@@ -12,15 +12,15 @@ public:
   Animation(const sf::Sprite& sprite, int x, int y, int width, int height, int num, float time, Direction direction);
   ~Animation();
 
-  void SetPosition(int x, int y);
+  void SetPosition(float x, float y);
   void Update();
   void Render(sf::RenderWindow& window);
 
   int GetWidth() const;
   int GetHeight() const;
 
-  int GetX() const;
-  int GetY() const;
+  float GetX() const;
+  float GetY() const;
 
   Direction GetDirection() const;
 private:
@@ -31,6 +31,6 @@ private:
   int m_num;
   int m_width, m_height;
   int m_imgX, m_imgY;
-  int m_x, m_y;
+  float m_x, m_y;
   Direction m_direction;
 };

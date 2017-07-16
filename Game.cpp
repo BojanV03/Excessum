@@ -15,15 +15,16 @@ Game::Game()
 	m_textures.Load("person2", "assets/images/person2.png"); // serif
 	m_textures.Load("person3", "assets/images/person3.png"); // zena
 	m_textures.Load("person4", "assets/images/person4.png"); // steampunk
+	m_textures.Load("person5", "assets/images/person5.png"); // baba
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
 
-	m_fonts.Load("font1", "assets/fonts/MOTB.ttf");
+	m_fonts.Load("font1", "assets/fonts/OldTownRegular.ttf");
 	m_fonts.Load("rukopis", "assets/fonts/Sixteen_secodns.otf");
 	m_fonts.Load("botovi", "assets/fonts/OpenSans-CondLight.ttf");
 
 	m_currentState = new PlayState(this);
-
+	srand(time(NULL)); // Ovo mozda skinuti odavde
 }
 Game::~Game()
 {
@@ -71,6 +72,9 @@ void Game::ProcessEvents()
 			{
 				m_currentState->Keyboard(static_cast<char>(event.text.unicode));
 			}
+		}
+		else if (event.type == sf::Event::KeyPressed) {
+			m_currentState->Controller(event.key.code);
 		}
 	}
 }

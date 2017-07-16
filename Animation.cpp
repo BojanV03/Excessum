@@ -25,9 +25,9 @@ int Animation::GetHeight() const
 {
   return m_height;
 }
-int Animation::GetX() const { return m_x; }
-int Animation::GetY() const { return m_y; }
-void Animation::SetPosition(int x, int y)
+float Animation::GetX() const { return m_x; }
+float Animation::GetY() const { return m_y; }
+void Animation::SetPosition(float x, float y)
 {
   m_x = x;
   m_y = y;

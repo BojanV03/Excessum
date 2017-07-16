@@ -14,7 +14,8 @@ Book::Book(const TextureManager& textures, const FontManager& fonts)
 	m_sprite.setScale(1.7, 1.7);
 
   m_names = std::deque<std::string>();
-  m_sprite.setPosition(WIDTH/2 - m_sprite.getLocalBounds().width/2-100, HEIGHT-m_sprite.getLocalBounds().height-75);
+	// umesto HEIGHT-50 bilo je -> HEIGHT-m_sprite.getLocalBounds().height-75
+  m_sprite.setPosition(WIDTH/2 - m_sprite.getLocalBounds().width/2-100, HEIGHT-50);
   m_hp = 5;
 
 	m_botovi = sf::Font(fonts.Get("botovi"));
@@ -97,4 +98,12 @@ void Book::Render(sf::RenderWindow &window)
 //    std::cout << "Renderujemo osobu " << *i;
     window.draw(text);
   }
+}
+void Book::SetY(float y)
+{
+	m_sprite.setPosition(m_sprite.getPosition().x, y);
+}
+float Book::GetY() const
+{
+	return m_sprite.getPosition().y;
 }

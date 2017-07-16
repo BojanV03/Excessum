@@ -31,6 +31,9 @@ public:
 
   void Render(sf::RenderWindow &window);
 
+  void SetY(float y);
+  float GetY() const;
+  
 private:
   sf::Sprite m_sprite;
   sf::Font m_botovi;
