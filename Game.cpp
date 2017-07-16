@@ -14,6 +14,7 @@ Game::Game()
 	m_textures.Load("person1", "assets/images/person1.png"); // kauboj
 	m_textures.Load("person2", "assets/images/person2.png"); // serif
 	m_textures.Load("person3", "assets/images/person3.png"); // zena
+	m_textures.Load("person4", "assets/images/person4.png"); // steampunk
 	m_textures.Load("background", "assets/images/pozadina.png");
 	m_textures.Load("knjiga", "assets/images/knjiga.png");
 

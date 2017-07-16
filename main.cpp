@@ -6,7 +6,7 @@
 
 int WIDTH = 1024;
 int HEIGHT = 768;
-int NUM_PERSONS = 3; // promeniti po dodavanju
+int NUM_PERSONS = 4; // promeniti po dodavanju
 
 int main(int argc, char *argv[])
 {

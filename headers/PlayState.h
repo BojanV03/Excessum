@@ -4,7 +4,6 @@
 #include "State.h"
 #include "Organism.h"
 #include <vector>
-#include "KeyboardInput.h"
 
 class PlayState : public State
 {
