@@ -32,14 +32,20 @@ public:
 
   void Render(sf::RenderWindow &window);
 
+  sf::Sprite& GetSkull();
+
   void SetY(float y);
   float GetY() const;
 
 private:
   sf::Sprite m_sprite;
+  sf::Sprite m_skull;
+  sf::Sprite m_hourglass;
   sf::Font m_botovi;
   sf::Font m_rukopis;
+  sf::Font m_stats;
   unsigned m_score;
   float m_time;
+  int m_kills;
 	std::deque<std::string> m_names;
 };

@@ -20,7 +20,15 @@ Book::Book(const TextureManager& textures, const FontManager& fonts)
 
 	m_botovi = sf::Font(fonts.Get("botovi"));
 	m_rukopis = sf::Font(fonts.Get("rukopis"));
+	m_stats = sf::Font(fonts.Get("font1"));
 
+	m_skull.setTexture(textures.Get("lobanja"));
+	m_hourglass.setTexture(textures.Get("sat"));
+	m_skull.setScale(1.5, 1.5);
+	m_hourglass.setScale(1.5, 1.5);
+
+	m_kills = 0;
+	m_time = 95.8;
   m_score = 0;
 }
 
@@ -32,7 +40,7 @@ Book::~Book()
 void Book::KillPerson(const std::string &ime)
 {
   m_names.push_front(std::string(ime));
-
+	m_kills++;
 	m_time += 2;
   if(m_names.size() >= 12)
   {
@@ -40,6 +48,10 @@ void Book::KillPerson(const std::string &ime)
   }
 }
 
+sf::Sprite& Book::GetSkull()
+{
+  return m_skull;
+}
 sf::Sprite& Book::GetSprite()
 {
   return m_sprite;
@@ -86,8 +98,29 @@ void Book::Update(float dt)
 void Book::Render(sf::RenderWindow &window)
 {
   int j = 0;
+/**************************/
+	sf::Text tmpText;
+
+	std::string time = "" + std::to_string(((int)m_time)/60) + "m " + std::to_string(((int)m_time)%60) + "s";
+
+	tmpText.setString(time);
+	tmpText.setFont(m_stats);
+	tmpText.setFillColor(sf::Color::Black);
+	tmpText.setCharacterSize(60);
+
+	m_skull.setPosition(m_sprite.getPosition().x + 75, m_sprite.getPosition().y + 75);
+	m_hourglass.setPosition(m_sprite.getPosition().x + 75, m_sprite.getPosition().y + 180);
 
 	window.draw(m_sprite);
+	window.draw(m_skull);
+	window.draw(m_hourglass);
+	tmpText.setPosition(m_sprite.getPosition().x + 150, m_sprite.getPosition().y + 183);
+	window.draw(tmpText);
+	tmpText.setString(std::to_string(m_kills));
+	tmpText.setPosition(m_sprite.getPosition().x + 150, m_sprite.getPosition().y + 70);
+	window.draw(tmpText);
+
+/**************************/
 //  window.draw(m_skullSprite);
 
   for(auto i = m_names.crbegin(); i != m_names.crend(); i++)
