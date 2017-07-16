@@ -91,6 +91,7 @@ void PlayState::Update(float dt)
       m_options[i].setPosition(m_optionsX, m_options[i].getPosition().y);
       m_options[i].setPosition(m_optionsX, m_options[i].getPosition().y);
       m_badge.setPosition(m_options[m_selectedOption].getGlobalBounds().left + m_options[m_selectedOption].getGlobalBounds().width + 20, m_badge.getPosition().y);
+      m_logo.setPosition(m_logo.getPosition().x + OPTIONS_MOVE_STEP * dt * 0.5, m_logo.getPosition().y);
     }
   }
   if (m_bookAnimation) {
