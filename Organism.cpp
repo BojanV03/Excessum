@@ -102,16 +102,6 @@ void Organism::SetRenderText(const std::string& s)
 	m_renderText.setString(s);
 }
 
-void Organism::Render(sf::RenderWindow &window)
-{
-	m_renderText.setFont(m_font);
-	m_renderText.setCharacterSize(30);
-	m_renderText.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - m_renderText.getLocalBounds().width/2, m_anim->GetY()-m_renderText.getLocalBounds().height*2.0);
-
-	m_renderText.setFillColor(m_textColor);
-	window.draw(m_renderText);
-	m_anim->Render(window);
-}
 const Animation& Organism::GetAnimation() const
 {
 	return *m_anim;
@@ -120,4 +110,14 @@ const Animation& Organism::GetAnimation() const
 void Organism::SetColor(sf::Color c)
 {
 	m_textColor = sf::Color(c);
+}
+void Organism::Render(sf::RenderWindow &window)
+{
+	m_renderText.setFont(m_font);
+	m_renderText.setCharacterSize(30);
+	m_renderText.setPosition(m_anim->GetX() + m_anim->GetWidth()/2 - m_renderText.getGlobalBounds().width/2, m_anim->GetY()-m_renderText.getCharacterSize()*1.2);
+
+	m_renderText.setFillColor(m_textColor);
+	window.draw(m_renderText);
+	m_anim->Render(window);
 }
