@@ -23,6 +23,7 @@ private:
 
   sf::Sprite m_background;
   sf::Sprite m_badge;
+  sf::Sprite m_logo;
   sf::Clock m_clock;
 
   float m_optionsX;

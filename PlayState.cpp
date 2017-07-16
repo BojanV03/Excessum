@@ -5,15 +5,22 @@ PlayState::PlayState(Game* game)
 {
   m_options.push_back(sf::Text("Start Game", p_game->Fonts().Get("font1"), OPTIONS_FONT_SIZE));
   m_options.push_back(sf::Text("Exit Game", p_game->Fonts().Get("font1"), OPTIONS_FONT_SIZE));
-
-  m_options[0].setPosition(m_optionsX, HEIGHT - 500);
+  m_options[0].setFillColor(sf::Color::Black);
+  m_options[1].setFillColor(sf::Color::Black);
+  m_options[0].setPosition(m_optionsX, HEIGHT - 475);
   m_options[1].setPosition(m_optionsX, m_options[0].getPosition().y + OPTIONS_LINE_HEIGHT);
 
   m_knjiga = Book(p_game->Textures(), p_game->Fonts());
   m_background = sf::Sprite(p_game->Textures().Get("background"));
+
   m_badge = sf::Sprite(p_game->Textures().Get("bedz"));
-  m_badge.scale(0.3, 0.3);
-  m_badge.setPosition(m_options[0].getGlobalBounds().left + m_options[0].getGlobalBounds().width + 20, m_options[0].getGlobalBounds().top);
+  m_badge.scale(0.25, 0.25);
+  m_badge.setPosition(m_options[0].getGlobalBounds().left + m_options[0].getGlobalBounds().width + 20, m_options[0].getGlobalBounds().top - 5);
+
+  m_logo = sf::Sprite(p_game->Textures().Get("logo"));
+  m_logo.scale(0.35, 0.35);
+  m_logo.setPosition(WIDTH - m_logo.getGlobalBounds().width - 150, HEIGHT/2 - m_logo.getGlobalBounds().height/2 + 35);
+
   m_spawnTime = 2;
   m_selectedOption = 0;
   m_clock.restart();
@@ -74,7 +81,7 @@ void PlayState::Update(float dt)
   if (m_optionsAnimation) {
     m_optionsX -= OPTIONS_MOVE_STEP * dt;
     if (m_badge.getGlobalBounds().left + m_badge.getGlobalBounds().width < 0) {
-      
+
       m_optionsAnimation = false;
       m_drawMenu = false;
       m_bookAnimation = true;
@@ -132,6 +139,7 @@ void PlayState::Render(sf::RenderWindow& window)
       window.draw(*it);
     }
     window.draw(m_badge);
+    window.draw(m_logo);
   }
   if (m_peopleMoving) {
     // iscrtavnje ljudi
