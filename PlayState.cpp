@@ -10,7 +10,7 @@ PlayState::PlayState(Game* game)
   m_options[0].setPosition(m_optionsX, HEIGHT - 475);
   m_options[1].setPosition(m_optionsX, m_options[0].getPosition().y + OPTIONS_LINE_HEIGHT);
 
-  m_knjiga = Book(p_game->Textures(), p_game->Fonts());
+  m_book = Book(p_game->Textures(), p_game->Fonts());
   m_background = sf::Sprite(p_game->Textures().Get("background"));
 
   m_badge = sf::Sprite(p_game->Textures().Get("bedz"));
@@ -59,7 +59,7 @@ void PlayState::Keyboard(char key)
       {
         //std::cout << "JEDNAKO " << i << "  "<<  m_organisms.size() << '\n';
         DeleteOrganism(i);
-        m_knjiga.KillPerson(str);
+        m_book.KillPerson(str);
         m_inputText.clear();
         return;
       }
@@ -72,6 +72,7 @@ void PlayState::Keyboard(char key)
   }
   if(!isFound)
   {
+    m_book.LoseTime(5);
     m_inputText.clear();
   }
 }
@@ -97,20 +98,22 @@ void PlayState::Update(float dt)
     // kod za izlazak knjige. Kad izadje, krece igra
     //m_bookAnimation = false;
     m_drawBook = true;
-    m_knjiga.SetY(m_knjiga.GetY() - 200 *dt);
+    m_book.SetY(m_book.GetY() - 200 *dt);
     // pomeram knjigu za 200 * dt na gore, kada dodje do vrednosti, stane
-    if (m_knjiga.GetY() <= HEIGHT-m_knjiga.GetSprite().getGlobalBounds().height + 170) {
+    if (m_book.GetY() <= HEIGHT-m_book.GetSprite().getGlobalBounds().height + 170) {
       m_bookAnimation = false;
       m_peopleMoving = true;
     }
     return ;
   }
   if (m_peopleMoving && m_drawBook) {
+    m_book.Update(dt);
     if (m_clock.getElapsedTime().asSeconds() > m_spawnTime) {
       // Ako je proteklo vise od spawnTime
       // dodaj novog
       CURRENT_PERSON++;
       AddPerson();
+
 
       // sortiranje zbog preklapanja
       SortOrganisms();
@@ -126,6 +129,7 @@ void PlayState::Update(float dt)
       {
         // Izasao izvan ekrana
         DeleteOrganism(i);
+        m_book.LoseTime(5);
       }
     }
   }
@@ -149,7 +153,7 @@ void PlayState::Render(sf::RenderWindow& window)
   }
   if (m_drawBook) {
     // iscrtavanje knjige
-    m_knjiga.Render(window);
+    m_book.Render(window);
   }
 }
 void PlayState::Clean()

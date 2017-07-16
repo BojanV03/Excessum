@@ -18,6 +18,7 @@ public:
 
   sf::Sprite& GetSprite();
   void SetSprite(const sf::Sprite& spr);
+  void Update(float dt);
 
   void SetTexture();
 
@@ -25,20 +26,20 @@ public:
   void SetScore(unsigned n);
   void AddToScore(unsigned n);
 
-  float GetHp();
-  void SetHp(float newHp);
-  void LoseHp(float ammount);
+  float GetTime();
+  void SetTime(float newTime);
+  void LoseTime(float ammount);
 
   void Render(sf::RenderWindow &window);
 
   void SetY(float y);
   float GetY() const;
-  
+
 private:
   sf::Sprite m_sprite;
   sf::Font m_botovi;
   sf::Font m_rukopis;
   unsigned m_score;
-  float m_hp;
+  float m_time = 60;
 	std::deque<std::string> m_names;
 };

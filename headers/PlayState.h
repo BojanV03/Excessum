@@ -33,7 +33,7 @@ private:
   // objects
   std::vector<Organism*> m_organisms;
   std::vector<char> m_inputText;
-  Book m_knjiga;
+  Book m_book;
 
   // bools - logic
   bool m_optionsAnimation;

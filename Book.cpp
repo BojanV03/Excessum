@@ -16,7 +16,7 @@ Book::Book(const TextureManager& textures, const FontManager& fonts)
   m_names = std::deque<std::string>();
 	// umesto HEIGHT-50 bilo je -> HEIGHT-m_sprite.getLocalBounds().height-75
   m_sprite.setPosition(WIDTH/2 - m_sprite.getLocalBounds().width/2-100, HEIGHT-50);
-  m_hp = 5;
+  m_time = 5;
 
 	m_botovi = sf::Font(fonts.Get("botovi"));
 	m_rukopis = sf::Font(fonts.Get("rukopis"));
@@ -33,6 +33,7 @@ void Book::KillPerson(const std::string &ime)
 {
   m_names.push_front(std::string(ime));
 
+	m_time += 2;
   if(m_names.size() >= 12)
   {
     m_names.pop_back();
@@ -63,25 +64,38 @@ void Book::AddToScore(unsigned n)
   m_score += n;
 }
 
-float Book::GetHp()
+float Book::GetTime()
 {
-  return m_hp;
+  return m_time;
 }
 
-void Book::SetHp(float newHp)
+void Book::SetTime(float newTime)
 {
-  m_hp = newHp;
+  m_time = newTime;
 }
 
-void Book::LoseHp(float ammount)
+void Book::LoseTime(float ammount)
 {
-  m_hp -= ammount;
+  m_time -= ammount;
 }
 
+void Book::Update(float dt)
+{
+	m_time -= dt;
+}
 void Book::Render(sf::RenderWindow &window)
 {
   int j = 0;
-  window.draw(m_sprite);
+	/********************/
+	sf::Text textTime;
+	textTime.setString(std::to_string(m_time));
+	textTime.setFont(m_rukopis);
+	textTime.setCharacterSize(30);
+	textTime.setPosition(100, 0);
+	textTime.setFillColor(sf::Color::Black);
+	window.draw(textTime);
+
+	window.draw(m_sprite);
 //  window.draw(m_skullSprite);
 
   for(auto i = m_names.crbegin(); i != m_names.crend(); i++)
@@ -96,7 +110,9 @@ void Book::Render(sf::RenderWindow &window)
 
     text.setFillColor(sf::Color::Black);
 //    std::cout << "Renderujemo osobu " << *i;
-    window.draw(text);
+		window.draw(text);
+
+
   }
 }
 void Book::SetY(float y)
