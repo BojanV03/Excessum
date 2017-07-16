@@ -30,10 +30,12 @@ private:
   // objects
   std::vector<Organism*> m_organisms;
   std::vector<char> m_inputText;
+  Book knjiga;
+  
   // bools - logic
   bool m_optionsAnimation;
   bool m_bookAnimation;
-  Book knjiga;
+
 
 private:
   const int OPTIONS_MOVE_STEP = 400;
