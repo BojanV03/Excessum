@@ -74,8 +74,8 @@ Go through menu with w/s or up/down keys, and select options with enter/space ke
 ### Programmers
 * **Ivan** - https://github.com/ivke080
 * **Bojan** - https://github.com/BojanV03
-* **Toni** - https://github.com/1not
 
 ### Artists
 * **Dusan** - https://www.behance.net/dusanzubcice
 * **Stefan** - https://www.facebook.com/stefan.zrnovic
+* **Toni** - https://github.com/1not
