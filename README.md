@@ -1,4 +1,5 @@
 # Excessum
+This game was made during 48h Game Jam (14.7.2017. - 16.7.2017.)
 
 ## :scroll: Story
 It's a very warm day without water right now...
