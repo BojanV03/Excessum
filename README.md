@@ -48,21 +48,21 @@ $ sudo apt-get install libsfml-dev
 ```
 * Download the SDK
 
-Download the SDK from the [download page](https://www.sfml-dev.org/download.php), unpack it and copy the files to your preferred location: either a separate path in your personal folder (like /home/me/sfml), or a standard path (like /usr/local). 
+Download the SDK from the [download page](https://www.sfml-dev.org/download.php), unpack it and copy the files to your preferred location: either a separate path in your personal folder (like /home/me/sfml), or a standard path (like /usr/local).
 
 * Building SFML yourself
 
-If you want to go this way, there's a dedicated tutorial on building SFML yourself.
+If you want to go this way, there's a [dedicated tutorial](https://www.sfml-dev.org/tutorials/2.0/compile-with-cmake.php) on building SFML yourself.
 
 ## :wrench: Setup and run the game
 
 1. Download (clone) this repository
-2. If there is no exec.exe output file, type 'make' in your terminal (wihtout quotes)
+2. If there is no exec.exe output file, type 'make' in your terminal (without quotes)
 3. Type './exec.exe' in your terminal (again, without quotes)
 4. Play the game
 
 ## :video_game: Gameplay
-This game will help you to master your blind typing skill in a funny way. (hint: :bomb:) 
+This game will help you to master your blind typing skill in a funny way. (hint: :bomb:)
 Go through menu with w/s or up/down keys, and select options with enter/space key. Start typing names you see on the screen. Enjoy.
 
 <p>P.S. Yes, game IS inspired by anime 'Death Note'</p>
