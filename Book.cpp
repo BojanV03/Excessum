@@ -31,11 +31,11 @@ Book::Book(const TextureManager& textures, const FontManager& fonts)
 
 	m_kills = 0;
 	m_time = 185.9;
-  m_score = 0;
+    m_score = 0;
 
-	if(!buffer.loadFromFile("death_explosion.wav"))
+	if(!buffer.loadFromFile("./assets/Sounds/death_explosion.wav"))
 	{
-		std::cout << "asedfjalesfjawelif" << std::endl;
+		std::cout << "Failed to load death explosion sound effect" << std::endl;
 	}
 
 

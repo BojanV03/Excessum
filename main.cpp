@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 {
 	Game game;
   sf::Music music;
-  if(!music.openFromFile("start_game.wav"))
+  if(!music.openFromFile("./assets/Sounds/start_game.wav"))
   {
     std::cout << "ERROR"<< std::endl;
   }

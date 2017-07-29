@@ -39,7 +39,7 @@ PlayState::PlayState(Game* game)
 sf::Music PlayState::loadMusic(std::string music_filename, float music_frequency, float music_volume, bool music_loop)
 {
     sf::Music music;
-    music.openFromFile("start_game.wav");
+    music.openFromFile("./assets/Sounds/start_game.wav");
     // if(!music.openFromFile("start_game.wav"))
     // {
     //     std::cout << "ERROR" << std::endl;
